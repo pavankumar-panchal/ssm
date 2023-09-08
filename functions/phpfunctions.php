@@ -93,7 +93,9 @@ function runmysqlquery_old($query)
 	$dbname = 'relyon_imax';
 
 	//Connect to Database
-	mysqli_select_db($dbname, $newconnection_old) or die("Cannot connect to database");
+	mysqli_select_db($newconnection_old, $dbname) or die("Cannot connect to database");
+
+
 	set_time_limit(3600);
 	//Run the query
 	$result = mysqli_query($query, $newconnection_old) or die(" run Query Failed in Runquery function1." . $query); //;
@@ -127,7 +129,7 @@ function runmysqlqueryfetch_old($query)
 	$dbname = 'relyon_imax';
 
 	//Connect to Database
-	mysqli_select_db($dbname, $newconnection_old) or die("Cannot connect to database");
+	mysqli_select_db($newconnection_old, $dbname) or die("Cannot connect to database");
 	set_time_limit(3600);
 	//Run the query
 	$result = mysqli_query($query, $newconnection_old) or die(" run Query Failed in Runquery function1." . $query); //;
@@ -177,16 +179,29 @@ function changedateformat($date)
 
 
 
+// function changetimeformat($time)
+// {
+// 	if ($time <> "00:00:00") {
+// 		$result = split(":", $time);
+// 		$time = $result[0] . ":" . $result[1] . ":" . $result[2];
+// 	} else {
+// 		$time = "";
+// 	}
+// 	return $time;
+// }
+
+
 function changetimeformat($time)
 {
-	if ($time <> "00:00:00") {
-		$result = split(":", $time);
+	if ($time !== "00:00:00") {
+		$result = explode(":", $time);
 		$time = $result[0] . ":" . $result[1] . ":" . $result[2];
 	} else {
 		$time = "";
 	}
 	return $time;
 }
+
 
 
 function cusidcombine($customerid)
@@ -261,22 +276,41 @@ function changetime($time)
 	odbc_close($connection);
 }
 */
+// function runaccessquerycsd($query)
+// {
+// 	global $csddsnname, $csddsnuser, $csddsnpwd ;
+// 	//Connect to host
+// 	$connection = odbc_connect($csddsnname, $csddsnuser, $csddsnpwd) or die($csddsnname . $csddsnuser . "Cannot connect to Access server host");
+
+// 	//Run the query
+// 	$result = odbc_exec($connection, $query) or die(" run Query Failed in runquery function");
+
+// 	//Return the result
+// 	return $result;
+
+// 	//Close the database connection
+// 	odbc_close($connection);
+// }
+
 function runaccessquerycsd($query)
 {
 	global $csddsnname, $csddsnuser, $csddsnpwd;
 
-	//Connect to host
+	// Connect to host
 	$connection = odbc_connect($csddsnname, $csddsnuser, $csddsnpwd) or die($csddsnname . $csddsnuser . "Cannot connect to Access server host");
 
-	//Run the query
+	// Run the query
 	$result = odbc_exec($connection, $query) or die(" run Query Failed in runquery function");
 
-	//Return the result
-	return $result;
-
-	//Close the database connection
+	// Close the database connection
 	odbc_close($connection);
+
+	// Return the result
+	return $result;
 }
+
+
+
 
 //T0 Display Current Month Calendar--
 
@@ -680,7 +714,6 @@ function getpagelink($linkvalue)
 			break;
 	}
 }
-
 function getpagetitle($linkvalue)
 {
 	switch ($linkvalue) {

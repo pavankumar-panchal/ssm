@@ -50,6 +50,9 @@ $year = date("Y", mktime(0, 0, 0, date('n')));
 $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
 
 ?>
+
+
+
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -234,10 +237,10 @@ $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
                   </td>
                   <td valign="top" class="content-box"><input name="navigationtabcount" id="navigationtabcount"
                       type="hidden" value="<?php echo ($navigationtabcount); ?>" />
-                    <?php 
+                    <?php
                     // if (!$_GET['a_link'] || $_GET['a_link'] == 'home_dashboard') {
-                       ?>
-                      <?php if (!isset($_GET['a_link']) || $_GET['a_link'] == 'home_dashboard') { ?>
+                    ?>
+                    <?php if (!isset($_GET['a_link']) || $_GET['a_link'] == 'home_dashboard') { ?>
 
                       <script type="text/javascript" src="http://www.google.com/jsapi"></script>
                       <script language="javascript" src="../functions/annotatedtimeline.js"

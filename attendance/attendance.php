@@ -103,8 +103,8 @@ else {
                               <td width="68%" height="35" align="left" valign="middle">
                                 <div id="form-error"></div>
                               </td>
-                              <td width="32%" height="35" align="right" valign="middle"><input name="display"
-                                  type="button" class="swiftchoicebutton" id="display" value="Display"
+                              <td width="32%" height="35" align="right" valign="middle">
+                                <input name="display" type="button" class="swiftchoicebutton" id="display" value="Display"
                                   onclick="attendancedisplay()" />&nbsp;&nbsp;&nbsp;
                                 <!-- <input name="advanced" type="button" class="swiftchoicebutton-orange" id="advanced" value="Advanced" href="./index.php?a_link=attendance_report_adv'" />-->
                                 <a href="./index.php?a_link=attendance_report_adv">Advanced</a>
@@ -118,7 +118,6 @@ else {
                 </div>
               </td>
             </tr>
-
           </table>
         </td>
       </tr>

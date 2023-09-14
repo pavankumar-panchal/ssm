@@ -139,8 +139,9 @@ $total = $calls + $emails + $errors + $inhouse + $onsite + $references + $requir
         <tr style="cursor:pointer" onClick="showhide('maindiv','toggleimg');">
           <td class="header-line" style="padding:0">&nbsp;&nbsp;Enter / Edit / View Details</td>
           <td align="right" class="header-line" style="padding-right:7px">
-            <div align="right"><img src="../images/minus.jpg" border="0" id="toggleimg" name="toggleimg"
-                align="absmiddle" /></div>
+            <div align="right">
+              <img src="../images/minus.jpg" border="0" id="toggleimg" name="toggleimg" align="absmiddle" />
+            </div>
           </td>
         </tr>
         <tr>
@@ -509,7 +510,7 @@ $total = $calls + $emails + $errors + $inhouse + $onsite + $references + $requir
                           <td width="15%" height="35" align="right" valign="middle">
                             <input name="view" type="submit" class="swiftchoicebutton" id="view" value="View"
                               onclick="formfilter('view'); " />
-                            &nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;
                             <img src="../images/toexcel.png" border="0" align="absmiddle"
                               onclick="formfilter('toexcel');" style="cursor:pointer" />
                           </td>

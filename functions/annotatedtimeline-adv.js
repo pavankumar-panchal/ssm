@@ -7,7 +7,7 @@ google.load('visualization', '1', { 'packages': ['annotatedtimeline'] });
 function gettimelinedata() {
 	var form = document.submitform;
 	var register = document.getElementsByName('register[]');
-	var error = document.getElementById('form-error');
+	var error = document.getElementById('form-error');	
 	var registerflag = false;
 	for (var i = 0; i < register.length; i++) {
 		if (register[i].checked == true && registerflag == false)

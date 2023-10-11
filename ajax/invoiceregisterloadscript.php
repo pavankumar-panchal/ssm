@@ -3,37 +3,31 @@
 ob_start("ob_gzhandler");
 include('../functions/phpfunctions.php');
 
-if($_POST['type'] == 1)
-{
+if ($_POST['type'] == 1) {
 	$registerdb = $_POST['registerdb'];
 	$textfield = $_POST['textfield'];
 	$subselection = $_POST['subselection'];
 	$orderby = $_POST['orderby'];
-	
-	
-	if($registerdb <> "" && strlen($textfield) > 0)
-	{
-		switch($registerdb)
-		{
-			case "ssm_onsiteregister":
-			{
-				switch($orderby)
-				{
-					case "customername":
-						$orderbyfield = "ssm_onsiteregister.customername";
-						break;
-					case "customerid":
-						$orderbyfield = "ssm_onsiteregister.customerid";
-						break;
-					default:
-						$orderbyfield = "ssm_onsiteregister.date";
-						break;
-				}
-				
-				switch($subselection)
-				{
-					case "customerid":
-						$query = "select ssm_onsiteregister.customername AS customername,
+
+
+	if ($registerdb <> "" && strlen($textfield) > 0) {
+		switch ($registerdb) {
+			case "ssm_onsiteregister": {
+					switch ($orderby) {
+						case "customername":
+							$orderbyfield = "ssm_onsiteregister.customername";
+							break;
+						case "customerid":
+							$orderbyfield = "ssm_onsiteregister.customerid";
+							break;
+						default:
+							$orderbyfield = "ssm_onsiteregister.date";
+							break;
+					}
+
+					switch ($subselection) {
+						case "customerid":
+							$query = "select ssm_onsiteregister.customername AS customername,
 						ssm_onsiteregister.customerid AS customerid, ssm_onsiteregister.date AS date,
 						ssm_onsiteregister.time AS time,ssm_onsiteregister.productgroup AS productgroup,
 						ssm_products.productname AS productname, ssm_onsiteregister.productversion AS productversion,
@@ -61,10 +55,10 @@ if($_POST['type'] == 1)
  						AND ssm_invoice.registername = 'ssm_onsiteregister' 
 						WHERE ssm_invoice.slno IS NULL AND ssm_onsiteregister.acknowledgementno <> '' 
 						AND ssm_onsiteregister.billno <> '' AND ssm_onsiteregister.servicecharge='yes' 
-						AND ssm_onsiteregister.customerid LIKE '%".$textfield."%' ORDER BY   `date` DESC , ".$orderbyfield;
-						break;
-					case "customername":
-						$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
+						AND ssm_onsiteregister.customerid LIKE '%" . $textfield . "%' ORDER BY   `date` DESC , " . $orderbyfield;
+							break;
+						case "customername":
+							$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
 						customerid, ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup,ssm_products.productname AS productname, 
 						ssm_onsiteregister.productversion AS productversion,ssm_onsiteregister.category AS category,
@@ -92,10 +86,10 @@ if($_POST['type'] == 1)
 						AND ssm_invoice.registername = 'ssm_onsiteregister' 
 						WHERE ssm_invoice.slno IS NULL AND ssm_onsiteregister.acknowledgementno <> '' 
 						AND ssm_onsiteregister.billno <> ''  AND ssm_onsiteregister.servicecharge='yes' 
-						AND ssm_onsiteregister.customername LIKE '%".$textfield."%' ORDER BY   `date` DESC , ".$orderbyfield;
-						break;
-					case "date":
-						$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
+						AND ssm_onsiteregister.customername LIKE '%" . $textfield . "%' ORDER BY   `date` DESC , " . $orderbyfield;
+							break;
+						case "date":
+							$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
 						customerid, ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup, ssm_products.productname AS productname, 
 						ssm_onsiteregister.productversion AS productversion,ssm_onsiteregister.category AS category,
@@ -121,11 +115,11 @@ if($_POST['type'] == 1)
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_onsiteregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_onsiteregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_onsiteregister.acknowledgementno <> '' AND ssm_onsiteregister.billno <> ''  
-						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.date LIKE '%".$textfield."%' 
-						ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "billno":
-						$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
+						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.date LIKE '%" . $textfield . "%' 
+						ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "billno":
+							$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
 						customerid, ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup,ssm_products.productname AS productname, 
 						ssm_onsiteregister.productversion AS productversion,ssm_onsiteregister.category AS category,
@@ -154,11 +148,11 @@ if($_POST['type'] == 1)
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_onsiteregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_onsiteregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_onsiteregister.acknowledgementno <> '' AND ssm_onsiteregister.billno <> ''  
-						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.billno LIKE '%".$textfield."%' 
-						ORDER BY   `date` DESC , ".$orderbyfield;
-						break;
-					case "solveddate":
-						$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
+						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.billno LIKE '%" . $textfield . "%' 
+						ORDER BY   `date` DESC , " . $orderbyfield;
+							break;
+						case "solveddate":
+							$query = "select ssm_onsiteregister.customername AS customername,ssm_onsiteregister.customerid AS 
 						customerid, ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup,ssm_products.productname AS productname,
 						ssm_onsiteregister.productversion AS productversion,ssm_onsiteregister.category AS category,
@@ -189,10 +183,10 @@ if($_POST['type'] == 1)
 						AND ssm_invoice.registername = 'ssm_onsiteregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_onsiteregister.acknowledgementno <> '' AND ssm_onsiteregister.billno <> ''  
 						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.solveddate 
-						LIKE '%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "userid":
-						$query = "select ssm_onsiteregister.customername AS customername,
+						LIKE '%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "userid":
+							$query = "select ssm_onsiteregister.customername AS customername,
 						ssm_onsiteregister.customerid AS customerid, 
 						ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup,ssm_products.productname AS productname, 
@@ -223,10 +217,10 @@ if($_POST['type'] == 1)
 						AND ssm_invoice.registername = 'ssm_onsiteregister' 
 						WHERE ssm_invoice.slno IS NULL AND ssm_onsiteregister.acknowledgementno <> '' 
 						AND ssm_onsiteregister.billno <> ''  AND ssm_onsiteregister.servicecharge='yes' 
-						AND ssm_onsiteregister.userid = '".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "solvedby":
-						$query = "select ssm_onsiteregister.customername AS customername,
+						AND ssm_onsiteregister.userid = '" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "solvedby":
+							$query = "select ssm_onsiteregister.customername AS customername,
 						ssm_onsiteregister.customerid AS
 						customerid, ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup, ssm_products.productname AS productname, 
@@ -258,10 +252,10 @@ if($_POST['type'] == 1)
 						AND ssm_invoice.registername = 'ssm_onsiteregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_onsiteregister.acknowledgementno <> '' AND ssm_onsiteregister.billno <> ''  
 						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.solvedby 
-						LIKE '%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "status":
-						$query = "select ssm_onsiteregister.customername AS customername,
+						LIKE '%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "status":
+							$query = "select ssm_onsiteregister.customername AS customername,
 						ssm_onsiteregister.customerid AS 
 						customerid, ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup,ssm_products.productname AS productname, 
@@ -294,10 +288,10 @@ if($_POST['type'] == 1)
 						AND ssm_invoice.registername = 'ssm_onsiteregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_onsiteregister.acknowledgementno <> '' AND ssm_onsiteregister.billno <> ''  
 						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.status 
-						LIKE '%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					default:
-						$query = "select ssm_onsiteregister.customername AS customername,
+						LIKE '%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						default:
+							$query = "select ssm_onsiteregister.customername AS customername,
 						ssm_onsiteregister.customerid AS customerid, 
 						ssm_onsiteregister.date AS date,ssm_onsiteregister.time AS time,
 						ssm_onsiteregister.productgroup AS productgroup,ssm_products.productname AS productname, 
@@ -324,14 +318,14 @@ if($_POST['type'] == 1)
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_onsiteregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_onsiteregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_onsiteregister.acknowledgementno <> '' AND ssm_onsiteregister.billno <> ''  
-						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.date LIKE '%".$textfield."%' 
-						ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-				}
-				$grid = '<form name="gridformcustomer" id="gridformcustomer">
+						AND ssm_onsiteregister.servicecharge='yes' AND ssm_onsiteregister.date LIKE '%" . $textfield . "%' 
+						ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+					}
+					$grid = '<form name="gridformcustomer" id="gridformcustomer">
 							<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-				
-				$grid .= '<tr class="tr-grid-header">
+
+					$grid .= '<tr class="tr-grid-header">
 							<td nowrap="nowrap" class="td-border-grid">Sl No</td>
 							<td nowrap="nowrap" class="td-border-grid">Registered Name</td>
 							<td nowrap="nowrap" class="td-border-grid">Customer Id</td>
@@ -368,90 +362,86 @@ if($_POST['type'] == 1)
 							<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 							<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 						</tr>';
-				
-				$result = runmysqlquery($query);
-				$i_n = 0;
-				while($fetch = mysqli_fetch_array($result))
-				{
-					$i_n++;
-					$color;
-					if($i_n%2 == 0)
-						$color = "#edf4ff";
-					else
-						$color = "#f7faff";
-					static $count = 0;
-					$count++;
-					$radioid = 'nameloadcustomerradio'.$count;
-					$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\''.$radioid.'\').checked=true;					loadregistersetselect(\''.$fetch['customername'].'\',\''.$fetch['customerid'].'\',\''.changedateformat($fetch['date']).'\',\''.$fetch['time'].'\',\''.$fetch['productgroup'].'\',\''.$fetch['productname'].'\',\''.$fetch['productversion'].'\',\'ssm_onsiteregister\',\''.changedateformat($fetch['billdate']).'\',\''.$fetch['billno'].'\',\''.$fetch['complaintid'].'\',\''.$fetch['state'].'\'); "  
-					bgcolor='.$color.'>';
-					
-					$grid .= "<td nowrap='nowrap'  class='td-border-grid'>
-								<input type='radio' name='nameloadcustomerradio' value=".$fetch['customerid']." id=".$radioid." 
-onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customerid']."','".changedateformat($fetch['date'])."',
-'".$fetch['time']."','".$fetch['productgroup']."','".$fetch['productname']."','".$fetch['productversion']."','ssm_onsiteregister','"
-.changedateformat($fetch['billdate'])."','".$fetch['billno']."','".$fetch['complaintid']."','".$fetch['state']."');\" />
+
+					$result = runmysqlquery($query);
+					$i_n = 0;
+					while ($fetch = mysqli_fetch_array($result)) {
+						$i_n++;
+						$color;
+						if ($i_n % 2 == 0)
+							$color = "#edf4ff";
+						else
+							$color = "#f7faff";
+						static $count = 0;
+						$count++;
+						$radioid = 'nameloadcustomerradio' . $count;
+						$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\'' . $radioid . '\').checked=true;					loadregistersetselect(\'' . $fetch['customername'] . '\',\'' . $fetch['customerid'] . '\',\'' . changedateformat($fetch['date']) . '\',\'' . $fetch['time'] . '\',\'' . $fetch['productgroup'] . '\',\'' . $fetch['productname'] . '\',\'' . $fetch['productversion'] . '\',\'ssm_onsiteregister\',\'' . changedateformat($fetch['billdate']) . '\',\'' . $fetch['billno'] . '\',\'' . $fetch['complaintid'] . '\',\'' . $fetch['state'] . '\'); "  
+					bgcolor=' . $color . '>';
+
+						$grid .= "<td nowrap='nowrap'  class='td-border-grid'>
+								<input type='radio' name='nameloadcustomerradio' value=" . $fetch['customerid'] . " id=" . $radioid . " 
+onclick=\"loadregistersetselect('" . $fetch['customername'] . "','" . $fetch['customerid'] . "','" . changedateformat($fetch['date']) . "',
+'" . $fetch['time'] . "','" . $fetch['productgroup'] . "','" . $fetch['productname'] . "','" . $fetch['productversion'] . "','ssm_onsiteregister','"
+							. changedateformat($fetch['billdate']) . "','" . $fetch['billno'] . "','" . $fetch['complaintid'] . "','" . $fetch['state'] . "');\" />
 							</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['customername']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['customerid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch['date'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['time']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['productgroup']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['productname']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['productversion']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['category']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['state']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['servicecharge']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['problem']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['contactperson']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['assignedto']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['status']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['solvedby']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['stremoteconnection']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['marketingperson']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['onsitevisit']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['overphone']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['mail']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['solveddate']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['billno']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch['billdate'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['acknowledgementno']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['remarks']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['userid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['modifiedby']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['complaintid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorizedgroup']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorized']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['teamleaderremarks']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorizedperson']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorizeddatetime']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['flag']."</td>";
-				
-					$grid .= '</tr>';
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['customername'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['customerid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch['date']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['time'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['productgroup'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['productname'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['productversion'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['category'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['state'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['servicecharge'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['problem'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['contactperson'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['assignedto'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['status'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['solvedby'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['stremoteconnection'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['marketingperson'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['onsitevisit'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['overphone'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['mail'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['solveddate'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['billno'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch['billdate']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['acknowledgementno'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['remarks'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['userid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['modifiedby'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['complaintid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorizedgroup'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorized'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['teamleaderremarks'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorizedperson'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorizeddatetime'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['flag'] . "</td>";
+
+						$grid .= '</tr>';
+					}
+					$grid .= '</table></form>';
+					echo ($grid);
+					break;
 				}
-				$grid .= '</table></form>';
-				echo($grid);
-				break;
-			}
-			
-			case "ssm_inhouseregister":
-			{
-				switch($orderby)
-				{
-					case "customername":
-						$orderbyfield = "customername";
-						break;
-					case "customerid":
-						$orderbyfield = "customerid";
-						break;
-					default:
-						$orderbyfield = "date";
-						break;
-				}
-				
-				switch($subselection)
-				{
-					case "customerid":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+
+			case "ssm_inhouseregister": {
+					switch ($orderby) {
+						case "customername":
+							$orderbyfield = "customername";
+							break;
+						case "customerid":
+							$orderbyfield = "customerid";
+							break;
+						default:
+							$orderbyfield = "date";
+							break;
+					}
+
+					switch ($subselection) {
+						case "customerid":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,
@@ -473,10 +463,10 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_inhouseregister.acknowledgementno <> '' AND ssm_inhouseregister.servicecharge='yes' 
-						AND ssm_inhouseregister.customerid LIKE'%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "customername":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+						AND ssm_inhouseregister.customerid LIKE'%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "customername":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,
@@ -498,11 +488,11 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' 
 						WHERE ssm_invoice.slno IS NULL AND ssm_inhouseregister.acknowledgementno <> '' 
-						AND ssm_inhouseregister.servicecharge='yes' AND ssm_inhouseregister.customername LIKE '%".$textfield."%'
-						ORDER BY ".$orderbyfield;
-						break;
-					case "date":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+						AND ssm_inhouseregister.servicecharge='yes' AND ssm_inhouseregister.customername LIKE '%" . $textfield . "%'
+						ORDER BY " . $orderbyfield;
+							break;
+						case "date":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,problem 
@@ -524,11 +514,11 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister'
 						WHERE ssm_invoice.slno IS NULL AND ssm_inhouseregister.acknowledgementno <> ''
-						AND ssm_inhouseregister.servicecharge='yes' AND ssm_inhouseregister.date LIKE '%".$textfield."%' 
-						ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "billno":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+						AND ssm_inhouseregister.servicecharge='yes' AND ssm_inhouseregister.date LIKE '%" . $textfield . "%' 
+						ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "billno":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,problem AS
@@ -549,10 +539,10 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_inhouseregister.acknowledgementno <> '' AND ssm_inhouseregister.servicecharge='yes' 
-						AND ssm_inhouseregister.billno LIKE '%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					case "userid":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+						AND ssm_inhouseregister.billno LIKE '%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						case "userid":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,problem AS 
@@ -572,10 +562,10 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_inhouseregister.acknowledgementno <> '' AND ssm_inhouseregister.servicecharge='yes' 
-						AND ssm_inhouseregister.userid LIKE '%".$textfield."%' ORDER BY   `date` DESC , ".$orderbyfield;
-						break;
-					case "solvedby":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+						AND ssm_inhouseregister.userid LIKE '%" . $textfield . "%' ORDER BY   `date` DESC , " . $orderbyfield;
+							break;
+						case "solvedby":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,problem 
@@ -597,10 +587,10 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_inhouseregister.acknowledgementno <> '' AND ssm_inhouseregister.servicecharge='yes'
-						AND ssm_inhouseregister.solvedby LIKE '%".$textfield."%' ORDER BY   `date` DESC , ".$orderbyfield;
-						break;
-					case "status":
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid 
+						AND ssm_inhouseregister.solvedby LIKE '%" . $textfield . "%' ORDER BY   `date` DESC , " . $orderbyfield;
+							break;
+						case "status":
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid 
 						AS customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,problem AS 
@@ -621,10 +611,10 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_inhouseregister.acknowledgementno <> '' AND ssm_inhouseregister.servicecharge='yes' 
-						AND ssm_inhouseregister.status LIKE '%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-					default:
-						$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
+						AND ssm_inhouseregister.status LIKE '%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+						default:
+							$query = "select ssm_inhouseregister.customername AS customername,ssm_inhouseregister.customerid AS 
 						customerid, ssm_inhouseregister.date AS date,ssm_inhouseregister.time AS time,
 						ssm_products.productname AS productname, ssm_inhouseregister.productversion AS productversion,
 						ssm_inhouseregister.category AS category,ssm_inhouseregister.servicecharge AS servicecharge,problem 
@@ -645,13 +635,13 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 						LEFT JOIN ssm_invoice on ssm_invoice.complaintid = ssm_inhouseregister.complaintid 
 						AND ssm_invoice.registername = 'ssm_inhouseregister' WHERE ssm_invoice.slno IS NULL 
 						AND ssm_inhouseregister.acknowledgementno <> '' AND ssm_inhouseregister.servicecharge='yes' 
-						AND ssm_inhouseregister.date LIKE '%".$textfield."%' ORDER BY  `date` DESC ,  ".$orderbyfield;
-						break;
-				}
-				$grid = '<form name="gridformcustomer" id="gridformcustomer">
+						AND ssm_inhouseregister.date LIKE '%" . $textfield . "%' ORDER BY  `date` DESC ,  " . $orderbyfield;
+							break;
+					}
+					$grid = '<form name="gridformcustomer" id="gridformcustomer">
 							<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-				
-				$grid .= '<tr class="tr-grid-header">
+
+					$grid .= '<tr class="tr-grid-header">
 							<td nowrap="nowrap" class="td-border-grid">Sl No</td>
 							<td nowrap="nowrap" class="td-border-grid">Registered Name</td>
 							<td nowrap="nowrap" class="td-border-grid">Customer Id</td>
@@ -685,75 +675,74 @@ onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customer
 							<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 							<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 						</tr>';
-				
-				$result = runmysqlquery($query);
-				$i_n = 0;
-				while($fetch = mysqli_fetch_array($result))
-				{
-					$i_n++;
-					$color;
-					if($i_n%2 == 0)
-						$color = "#edf4ff";
-					else
-						$color = "#f7faff";
 
-					static $count = 0;
-					$count++;
-					$radioid = 'nameloadcustomerradio'.$count;
-					$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\''.$radioid.'\').checked=true; 
-					loadregistersetselect(\''.$fetch['customername'].'\',\''.$fetch['customerid'].'\',
-					\''.changedateformat($fetch['date']).'\',\''.$fetch['time'].'\',\''.$fetch['productgroup'].'\',
-					\''.$fetch['productname'].'\',\''.$fetch['productversion'].'\',\'ssm_inhouseregister\',
-					\''.$fetch['billno'].'\',\''.$fetch['complaintid'].'\',\''.$fetch['state'].'\');
-					 " bgcolor='.$color.'>';
-					
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>
-								<input type='radio' name='nameloadcustomerradio' value=".$fetch['customerid']." id=".$radioid." 
-onclick=\"loadregistersetselect('".$fetch['customername']."','".$fetch['customerid']."','".changedateformat($fetch['date'])."',
-'".$fetch['time']."','".$fetch['productgroup']."','".$fetch['productname']."','".$fetch['productversion']."','ssm_inhouseregister','".$fetch['billno']."','".$fetch['complaintid']."','".$fetch['state']."');\" />
+					$result = runmysqlquery($query);
+					$i_n = 0;
+					while ($fetch = mysqli_fetch_array($result)) {
+						$i_n++;
+						$color;
+						if ($i_n % 2 == 0)
+							$color = "#edf4ff";
+						else
+							$color = "#f7faff";
+
+						static $count = 0;
+						$count++;
+						$radioid = 'nameloadcustomerradio' . $count;
+						$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\'' . $radioid . '\').checked=true; 
+					loadregistersetselect(\'' . $fetch['customername'] . '\',\'' . $fetch['customerid'] . '\',
+					\'' . changedateformat($fetch['date']) . '\',\'' . $fetch['time'] . '\',\'' . $fetch['productgroup'] . '\',
+					\'' . $fetch['productname'] . '\',\'' . $fetch['productversion'] . '\',\'ssm_inhouseregister\',
+					\'' . $fetch['billno'] . '\',\'' . $fetch['complaintid'] . '\',\'' . $fetch['state'] . '\');
+					 " bgcolor=' . $color . '>';
+
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>
+								<input type='radio' name='nameloadcustomerradio' value=" . $fetch['customerid'] . " id=" . $radioid . " 
+onclick=\"loadregistersetselect('" . $fetch['customername'] . "','" . $fetch['customerid'] . "','" . changedateformat($fetch['date']) . "',
+'" . $fetch['time'] . "','" . $fetch['productgroup'] . "','" . $fetch['productname'] . "','" . $fetch['productversion'] . "','ssm_inhouseregister','" . $fetch['billno'] . "','" . $fetch['complaintid'] . "','" . $fetch['state'] . "');\" />
 							</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['customername']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['customerid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch['date'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['time']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['productgroup']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['productname']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['productversion']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['category']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['servicecharge']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['problem']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['contactperson']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['assignedto']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['status']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['solvedby']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['stremoteconnection']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['marketingperson']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['onsitevisit']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['overphone']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['mail']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['billno']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['acknowledgementno']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['remarks']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['userid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['modifiedby']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['complaintid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorizedgroup']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorized']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['teamleaderremarks']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorizedperson']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['authorizeddatetime']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['flag']."</td>";
-				
-					$grid .= '</tr>';
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['customername'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['customerid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch['date']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['time'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['productgroup'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['productname'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['productversion'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['category'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['servicecharge'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['problem'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['contactperson'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['assignedto'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['status'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['solvedby'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['stremoteconnection'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['marketingperson'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['onsitevisit'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['overphone'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['mail'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['billno'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['acknowledgementno'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['remarks'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['userid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['modifiedby'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['complaintid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorizedgroup'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorized'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['teamleaderremarks'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorizedperson'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['authorizeddatetime'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['flag'] . "</td>";
+
+						$grid .= '</tr>';
+					}
+					$grid .= '</table></form>';
+					echo ($grid);
+					break;
 				}
-				$grid .= '</table></form>';
-				echo($grid);
-				break;
-			}
 			default:
-				echo("Nameload Script Server Page Failed.");
+				echo ("Nameload Script Server Page Failed.");
 				break;
-		}	
+		}
 	}
 }
 

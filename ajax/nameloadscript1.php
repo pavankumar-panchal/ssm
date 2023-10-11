@@ -3,57 +3,51 @@ ob_start("ob_gzhandler");
 include('../functions/phpfunctions.php');
 $date = datetimelocal('d-m-Y');
 $time = datetimelocal('H:i:s');
-if($_POST['type'] == 1)
-{
+if ($_POST['type'] == 1) {
 	$customerdb = $_POST['customerdb'];
 	$textfield = $_POST['textfield'];
 	$subselection = $_POST['subselection'];
 	$orderby = $_POST['orderby'];
-	
-	if($customerdb <> "" && strlen($textfield) > 2)
-	{
-		switch($customerdb)
-		{
-			case "invcustomer":
-			{
-				switch($orderby)
-				{
-					case "id":
-						$orderbyfield = "slno";
-						break;
-					case "name":
-						$orderbyfield = "businessname";
-						break;
-					case "category":
-						$orderbyfield = "region";
-						break;
-					case "email":
-						$orderbyfield = "emailid";
-						break;
-					case "contact1":
-						$orderbyfield = "contactperson";
-						break;
-					case "phone1":
-						$orderbyfield = "phone";
-						break;
-					case "place":
-						$orderbyfield = "place";
-						break;		
-					case "scratchnumber":
-						$orderbyfield = "scratchnumber";
-						break;
-					case "computerid":
-						$orderbyfield = "computerid";
-						break;
-					default:
-						$orderbyfield = "businessname";
-						break;
-				}
-				
-				switch($subselection)
-				{
-					case "id":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 	
+
+	if ($customerdb <> "" && strlen($textfield) > 2) {
+		switch ($customerdb) {
+			case "invcustomer": {
+					switch ($orderby) {
+						case "id":
+							$orderbyfield = "slno";
+							break;
+						case "name":
+							$orderbyfield = "businessname";
+							break;
+						case "category":
+							$orderbyfield = "region";
+							break;
+						case "email":
+							$orderbyfield = "emailid";
+							break;
+						case "contact1":
+							$orderbyfield = "contactperson";
+							break;
+						case "phone1":
+							$orderbyfield = "phone";
+							break;
+						case "place":
+							$orderbyfield = "place";
+							break;
+						case "scratchnumber":
+							$orderbyfield = "scratchnumber";
+							break;
+						case "computerid":
+							$orderbyfield = "computerid";
+							break;
+						default:
+							$orderbyfield = "businessname";
+							break;
+					}
+
+					switch ($subselection) {
+						case "id":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 	
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , inv_mas_region.category as 
@@ -62,10 +56,10 @@ if($_POST['type'] == 1)
 						phone, GROUP_CONCAT(contactperson) as contactperson ,customerid from inv_contactdetails group by 
 						customerid) as inv_contactdetails left join inv_mas_customer on inv_contactdetails.customerid = 
 						inv_mas_customer.slno left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region  
-						WHERE  inv_mas_customer.slno LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "name":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE  inv_mas_customer.slno LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "name":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -79,10 +73,10 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region 
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district 
-						WHERE  inv_mas_customer.businessname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "category":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE  inv_mas_customer.businessname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "category":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -95,10 +89,10 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region 
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district 
-						WHERE  inv_mas_region.category LIKE '".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "contactperson":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE  inv_mas_region.category LIKE '" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "contactperson":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -111,10 +105,10 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region 
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district 
-						WHERE  inv_contactdetails.contactperson LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "phone":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE  inv_contactdetails.contactperson LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "phone":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -127,11 +121,11 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region  
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district 
-						WHERE  inv_contactdetails.phone LIKE '%".$textfield."%' OR inv_contactdetails.cell 
-						LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "place":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE  inv_contactdetails.phone LIKE '%" . $textfield . "%' OR inv_contactdetails.cell 
+						LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "place":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -145,10 +139,10 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region  
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district
-						WHERE  inv_mas_customer.place LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "email":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE  inv_mas_customer.place LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "email":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -162,10 +156,10 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district  
-						WHERE inv_contactdetails.emailid LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "scratchnumber":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE inv_contactdetails.emailid LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "scratchnumber":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid ,
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -181,10 +175,10 @@ if($_POST['type'] == 1)
 						GROUP_CONCAT(contactperson) as contactperson ,customerid 
 						from inv_contactdetails group by customerid) as inv_contactdetails on 
 						inv_contactdetails.customerid = inv_mas_customer.slno  
-						WHERE inv_mas_scratchcard.scratchnumber LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "computerid":
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE inv_mas_scratchcard.scratchnumber LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "computerid":
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -198,10 +192,10 @@ if($_POST['type'] == 1)
 						GROUP_CONCAT(phone) as phone, GROUP_CONCAT(contactperson) as contactperson ,customerid 
 						from inv_contactdetails group by customerid) as inv_contactdetails 
 						on inv_contactdetails.customerid = inv_mas_customer.slno  
-						WHERE inv_customerproduct.computerid LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					default:
-						$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
+						WHERE inv_customerproduct.computerid LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						default:
+							$query = "SELECT DISTINCT inv_mas_customer.slno AS slno, inv_mas_customer.customerid AS customerid, 
 						inv_mas_customer.businessname AS businessname, inv_mas_customer.customerid as customerid , 
 						inv_contactdetails.contactperson as contactperson , inv_contactdetails.phone as phone , 
 						inv_mas_customer.place as place , inv_contactdetails.emailid as emailid , 
@@ -214,13 +208,13 @@ if($_POST['type'] == 1)
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_customer.region 
 						left join inv_mas_state on inv_mas_state.statename = inv_mas_customer.state
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_customer.district 
-						WHERE  inv_mas_customer.businessname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-				}
-				$grid = '<form name="gridformcustomer" id="gridformcustomer">
+						WHERE  inv_mas_customer.businessname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+					}
+					$grid = '<form name="gridformcustomer" id="gridformcustomer">
 						<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-				
-				$grid .= '<tr class="tr-grid-header">
+
+					$grid .= '<tr class="tr-grid-header">
 							<td nowrap = "nowrap" class="td-border-grid">Select</td>
 							<td nowrap = "nowrap" class="td-border-grid">Customer ID</td>
 							<td nowrap = "nowrap" class="td-border-grid">Customer Name</td>
@@ -230,77 +224,73 @@ if($_POST['type'] == 1)
 							<td nowrap = "nowrap" class="td-border-grid">Email</td>
 							<td nowrap = "nowrap" class="td-border-grid">Category</td>
 						</tr>';
-				$i_n = '';
-				$result = runmysqlquery($query);
-				while($fetch = mysqli_fetch_array($result))
-				{
-					$i_n++;
-					$color;
-					if($i_n%2 == 0)
-						$color = "#edf4ff";
-					else
-						$color = "#f7faff";
-					static $count = 0;
-					$count++;
-					$radioid = 'nameloadcustomerradio'.$count;
-					$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\''.$radioid.'\').checked=true;
-nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\''.$fetch['slno'].'\',\''.addslashes($fetch['businessname']).'\',\''.$fetch['region'].'\',\'customer\',\''.$date.'\',\''.$time.'\',\''.$fetch['state'].'\',\''.$fetch['emailid'].'\',\''.$fetch['place'].'\'); " bgcolor='.$color.'>';
-					
+					$i_n = '';
+					$result = runmysqlquery($query);
+					while ($fetch = mysqli_fetch_array($result)) {
+						$i_n++;
+						$color;
+						if ($i_n % 2 == 0)
+							$color = "#edf4ff";
+						else
+							$color = "#f7faff";
+						static $count = 0;
+						$count++;
+						$radioid = 'nameloadcustomerradio' . $count;
+						$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\'' . $radioid . '\').checked=true;
+nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\'' . $fetch['slno'] . '\',\'' . addslashes($fetch['businessname']) . '\',\'' . $fetch['region'] . '\',\'customer\',\'' . $date . '\',\'' . $time . '\',\'' . $fetch['state'] . '\',\'' . $fetch['emailid'] . '\',\'' . $fetch['place'] . '\'); " bgcolor=' . $color . '>';
 
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>
-								<input type='radio' name='nameloadcustomerradio' value=".$fetch['slno']." id=".$radioid." 
-onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch['slno']."','".addslashes($fetch['businessname'])."','".$fetch['region']."','customer','".$date."','".$time."','".$fetch['state']."','".$fetch['emailid']."','".$fetch['place']."');\" /></td>
-							<td nowrap='nowrap' class='td-border-grid'>".cusidcombine($fetch['customerid'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".addslashes($fetch['businessname'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['contactperson'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['phone'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['place'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['emailid']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['region']."</td>";
-				
-					$grid .= '</tr>';
+
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>
+								<input type='radio' name='nameloadcustomerradio' value=" . $fetch['slno'] . " id=" . $radioid . " 
+onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('" . $fetch['slno'] . "','" . addslashes($fetch['businessname']) . "','" . $fetch['region'] . "','customer','" . $date . "','" . $time . "','" . $fetch['state'] . "','" . $fetch['emailid'] . "','" . $fetch['place'] . "');\" /></td>
+							<td nowrap='nowrap' class='td-border-grid'>" . cusidcombine($fetch['customerid']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . addslashes($fetch['businessname']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['contactperson']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['phone']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['place']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['emailid'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['region'] . "</td>";
+
+						$grid .= '</tr>';
+					}
+					$grid .= '</table></form>';
+					echo ($grid);
+					break;
 				}
-				$grid .= '</table></form>';
-				echo($grid);
-				break;
-			}
-			case "dealer":
-			{
-				switch($orderby)
-				{
-					case "id":
-						$orderbyfield = "slno";
-						break;
-					case "name":
-						$orderbyfield = "businessname";
-						break;
-					case "category":
-						$orderbyfield = "region";
-						break;
-					case "contactperson":
-						$orderbyfield = "contactperson";
-						break;
-					case "place":
-						$orderbyfield = "place";
-						break;	
-					case "email":
-						$orderbyfield = "emailid";
-						break;
-					case "phone":
-						$orderbyfield = "phone";
-						break;
-					case "place":
-						$orderbyfield = "place";
-						break;
-					default:
-						$orderbyfield = "businessname";
-						break;
-				}
-				
-				switch($subselection)
-				{
-					case "id":
-						$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+			case "dealer": {
+					switch ($orderby) {
+						case "id":
+							$orderbyfield = "slno";
+							break;
+						case "name":
+							$orderbyfield = "businessname";
+							break;
+						case "category":
+							$orderbyfield = "region";
+							break;
+						case "contactperson":
+							$orderbyfield = "contactperson";
+							break;
+						case "place":
+							$orderbyfield = "place";
+							break;
+						case "email":
+							$orderbyfield = "emailid";
+							break;
+						case "phone":
+							$orderbyfield = "phone";
+							break;
+						case "place":
+							$orderbyfield = "place";
+							break;
+						default:
+							$orderbyfield = "businessname";
+							break;
+					}
+
+					switch ($subselection) {
+						case "id":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 						inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone,
 						inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, 
@@ -311,10 +301,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						FROM inv_mas_dealer left join inv_mas_users ON inv_mas_users.slno = inv_mas_dealer.userid 
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region 
-						WHERE inv_mas_dealer.slno LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "name":
-						 $query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+						WHERE inv_mas_dealer.slno LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "name":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 						 inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						 inv_mas_dealer.pincode, inv_mas_dealer.stdcode,
 						 inv_mas_dealer.phone, inv_mas_dealer.cell, inv_mas_region.category as region, 
@@ -327,10 +317,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						 left join inv_mas_users ON inv_mas_users.slno = inv_mas_dealer.userid 
 						 left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						 left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region
-						 WHERE inv_mas_dealer.businessname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-					break;
-					case "phone":
-						$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 	
+						 WHERE inv_mas_dealer.businessname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "phone":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 	
 						inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						inv_mas_state.statecode as state, inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone, 
 						inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, inv_mas_dealer.website, 
@@ -343,10 +333,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						left join inv_mas_state on inv_mas_state.statecode = inv_mas_district.statecode
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region 
-						WHERE inv_mas_dealer.phone LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "contactperson":
-						$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+						WHERE inv_mas_dealer.phone LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "contactperson":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 						inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						inv_mas_state.statecode as state, inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone, 
 						inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, inv_mas_dealer.website, 
@@ -359,10 +349,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						left join inv_mas_state on inv_mas_state.statecode = inv_mas_district.statecode
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region 
-						WHERE inv_mas_dealer.contactperson LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "place":
-						$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+						WHERE inv_mas_dealer.contactperson LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "place":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 						inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						inv_mas_state.statecode as state, inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone, 
 						inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, 
@@ -375,10 +365,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						left join inv_mas_state on inv_mas_state.statecode = inv_mas_district.statecode 
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region 
-						WHERE inv_mas_dealer.place LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "category":
-						$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+						WHERE inv_mas_dealer.place LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "category":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 						inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						inv_mas_state.statecode as state, inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone, 
 						inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, inv_mas_dealer.website, 
@@ -391,10 +381,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						left join inv_mas_state on inv_mas_state.statecode = inv_mas_district.statecode
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region  
-						WHERE inv_mas_region.category LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "email":
-						$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+						WHERE inv_mas_region.category LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "email":
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 						inv_mas_dealer.address, inv_mas_dealer.place, inv_mas_district.districtname as district, 
 						inv_mas_state.statecode as state, inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone, 
 						inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, inv_mas_dealer.website, 
@@ -407,10 +397,10 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 						left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 						left join inv_mas_state on inv_mas_state.statecode = inv_mas_district.statecode
 						left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region 
-						WHERE inv_mas_dealer.emailid LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					default:
-					$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
+						WHERE inv_mas_dealer.emailid LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						default:
+							$query = "SELECT inv_mas_dealer.slno,inv_mas_dealer.businessname, inv_mas_dealer.contactperson, 
 					inv_mas_dealer.address, inv_mas_dealer.place,inv_mas_district.districtname as district, 
 					inv_mas_state.statecode as state, inv_mas_dealer.pincode, inv_mas_dealer.stdcode,inv_mas_dealer.phone, 
 					inv_mas_dealer.cell, inv_mas_region.category as region, inv_mas_dealer.emailid, inv_mas_dealer.website, 
@@ -423,13 +413,13 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 					left join inv_mas_district on inv_mas_district.districtcode = inv_mas_dealer.district 
 					left join inv_mas_state on inv_mas_state.statecode = inv_mas_district.statecode
 					left join inv_mas_region on inv_mas_region.slno = inv_mas_dealer.region 
-					WHERE inv_mas_dealer.businessname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;						
-					break;
-				}
-				$grid = '<form name="gridformcustomer" id="gridformcustomer">
+					WHERE inv_mas_dealer.businessname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+					}
+					$grid = '<form name="gridformcustomer" id="gridformcustomer">
 					<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-				
-				$grid .= '<tr class="tr-grid-header">
+
+					$grid .= '<tr class="tr-grid-header">
 							<td nowrap="nowrap" class="td-border-grid">Select</td>
 							<td nowrap="nowrap" class="td-border-grid">Sl No</td>
 							<td nowrap="nowrap" class="td-border-grid">Dealer Company Name</td>
@@ -444,137 +434,133 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 							<td nowrap="nowrap" class="td-border-grid">District</td>
 							<td nowrap="nowrap" class="td-border-grid">Skype ID</td>
 						</tr>';
-				
-				$result = runmysqlquery($query);
-				$i_n = 0;
-				while($fetch = mysqli_fetch_array($result))
-				{
-					$color;
-					if($i_n%2 == 0)
-						$color = "#edf4ff";
-					else
-						$color = "#f7faff";
 
-					static $count = 0;
-					$count++;
-					$radioid = 'nameloadcustomerradio'.$count;
-					$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\''.$radioid.'\').checked=true;  nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\''.$fetch['slno'].'\',\''.$fetch['businessname'].'\',\''.$fetch['region'].'\',\'dealer\',\''.$date.'\',\''.$time.'\',\'\',\''.$fetch['emailid'].'\',\''.$fetch['place'].'\');" bgcolor='.$color.'>';
-					
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>
-								<input type='radio' name='nameloadcustomerradio' value=".$fetch['slno']." id=".$radioid."
- onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch['slno']."','".$fetch['dealercompanyname']."',
- '".$fetch['category']."','dealer','".$date."','".$time."' ,'','".$fetch['emailid']."','".$fetch['place']."' );\" /></td>
- 							<td nowrap='nowrap' class='td-border-grid'>".$fetch['slno']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['businessname']."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['contactperson'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['phone'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['emailid'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['tlemailid'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['mgremailid'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['hoemailid'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['region'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['place'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['district'])."</td>
-							<td nowrap='nowrap' class='td-border-grid'>".$fetch['skypeid']."</td>";
-				
-					$grid .= '</tr>';
+					$result = runmysqlquery($query);
+					$i_n = 0;
+					while ($fetch = mysqli_fetch_array($result)) {
+						$color;
+						if ($i_n % 2 == 0)
+							$color = "#edf4ff";
+						else
+							$color = "#f7faff";
+
+						static $count = 0;
+						$count++;
+						$radioid = 'nameloadcustomerradio' . $count;
+						$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\'' . $radioid . '\').checked=true;  nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\'' . $fetch['slno'] . '\',\'' . $fetch['businessname'] . '\',\'' . $fetch['region'] . '\',\'dealer\',\'' . $date . '\',\'' . $time . '\',\'\',\'' . $fetch['emailid'] . '\',\'' . $fetch['place'] . '\');" bgcolor=' . $color . '>';
+
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>
+								<input type='radio' name='nameloadcustomerradio' value=" . $fetch['slno'] . " id=" . $radioid . "
+ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('" . $fetch['slno'] . "','" . $fetch['dealercompanyname'] . "',
+ '" . $fetch['category'] . "','dealer','" . $date . "','" . $time . "' ,'','" . $fetch['emailid'] . "','" . $fetch['place'] . "' );\" /></td>
+ 							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['slno'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['businessname'] . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['contactperson']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['phone']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['emailid']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['tlemailid']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['mgremailid']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['hoemailid']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['region']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['place']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['district']) . "</td>
+							<td nowrap='nowrap' class='td-border-grid'>" . $fetch['skypeid'] . "</td>";
+
+						$grid .= '</tr>';
+					}
+					$grid .= '</table></form>';
+					echo ($grid);
+					break;
 				}
-				$grid .= '</table></form>';
-				echo($grid);
-				break;
-			}
-			case "ssmuser":
-			{
-				switch($orderby)
-				{
-					case "id":
-						$orderbyfield = "ssm_users.slno";
-						break;
-					case "name":
-						$orderbyfield = "ssm_users.fullname";
-						break;
-					case "category":
-						$orderbyfield = "ssm_users.locationname";
-						break;
-					case "phone":
-						$orderbyfield = "ssm_users.mobile";
-						break;
-					case "email":
-						$orderbyfield = "ssm_users.officialemail";
-						break;
-					default:
-						$orderbyfield = "ssm_users.fullname";
-						break;
-				}
-				
-				switch($subselection)
-				{
-					case "id":
-						
-						$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
+			case "ssmuser": {
+					switch ($orderby) {
+						case "id":
+							$orderbyfield = "ssm_users.slno";
+							break;
+						case "name":
+							$orderbyfield = "ssm_users.fullname";
+							break;
+						case "category":
+							$orderbyfield = "ssm_users.locationname";
+							break;
+						case "phone":
+							$orderbyfield = "ssm_users.mobile";
+							break;
+						case "email":
+							$orderbyfield = "ssm_users.officialemail";
+							break;
+						default:
+							$orderbyfield = "ssm_users.fullname";
+							break;
+					}
+
+					switch ($subselection) {
+						case "id":
+
+							$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
 						ssm_supportunits.heading as supportunit,ssm_users.officialemail as officialemail,
 						ssm_users.mobile as mobile,ssm_locationmaster.locationname as locationname 
 						FROM ssm_users 
 						LEFT JOIN ssm_supportunits ON ssm_supportunits.slno = ssm_users.supportunit 
 						LEFT JOIN ssm_locationmaster ON ssm_locationmaster.slno = ssm_users.locationname 
 						WHERE ssm_users.type <> 'ADMIN' AND ssm_users.existinguser <> 'no' AND ssm_users.slno 
-						LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "name":
-						$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
+						LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "name":
+							$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
 						ssm_supportunits.heading as supportunit,ssm_users.officialemail as officialemail,
 						ssm_users.mobile as mobile,ssm_locationmaster.locationname as locationname 
 						FROM ssm_users 
 						LEFT JOIN ssm_supportunits ON ssm_supportunits.slno = ssm_users.supportunit 
 						LEFT JOIN ssm_locationmaster ON ssm_locationmaster.slno = ssm_users.locationname 
 						WHERE ssm_users.type <> 'ADMIN' AND ssm_users.existinguser <> 'no' 
-						AND ssm_users.fullname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "category":
-						$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
+						AND ssm_users.fullname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "category":
+							$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
 						ssm_supportunits.heading as supportunit,ssm_users.officialemail as officialemail,
 						ssm_users.mobile as mobile,ssm_locationmaster.locationname as locationname 
 						FROM ssm_users 
 						LEFT JOIN ssm_supportunits ON ssm_supportunits.slno = ssm_users.supportunit 
 						LEFT JOIN ssm_locationmaster ON ssm_locationmaster.slno = ssm_users.locationname 
 						WHERE ssm_users.type <> 'ADMIN' AND ssm_users.existinguser <> 'no' 
-						AND ssm_users.locationname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "email":
-						$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
+						AND ssm_users.locationname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "email":
+							$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
 						ssm_supportunits.heading as supportunit,ssm_users.officialemail as officialemail,
 						ssm_users.mobile as mobile,ssm_locationmaster.locationname as locationname 
 						FROM ssm_users 
 						LEFT JOIN ssm_supportunits ON ssm_supportunits.slno = ssm_users.supportunit 
 						LEFT JOIN ssm_locationmaster ON ssm_locationmaster.slno = ssm_users.locationname 
 						WHERE ssm_users.type <> 'ADMIN' AND ssm_users.existinguser <> 'no' 
-						AND ssm_users.officialemail LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "phone":
-						$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
+						AND ssm_users.officialemail LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "phone":
+							$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
 						ssm_supportunits.heading as supportunit,ssm_users.officialemail as officialemail,
 						ssm_users.mobile as mobile,ssm_locationmaster.locationname as locationname 
 						FROM ssm_users 
 						LEFT JOIN ssm_supportunits ON ssm_supportunits.slno = ssm_users.supportunit 
 						LEFT JOIN ssm_locationmaster ON ssm_locationmaster.slno = ssm_users.locationname 
 						WHERE ssm_users.type <> 'ADMIN' AND ssm_users.existinguser <> 'no' AND ssm_users.mobile 
-						LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					default:
-						$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
+						LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						default:
+							$query = "SELECT ssm_users.slno as slno,ssm_users.fullname as fullname,
 						ssm_supportunits.heading as supportunit,ssm_users.officialemail as officialemail,
 						ssm_users.mobile as mobile,ssm_locationmaster.locationname as locationname 
 						FROM ssm_users 
 						LEFT JOIN ssm_supportunits ON ssm_supportunits.slno = ssm_users.supportunit 
 						LEFT JOIN ssm_locationmaster ON ssm_locationmaster.slno = ssm_users.locationname 
 						WHERE ssm_users.type <> 'ADMIN' AND ssm_users.existinguser <> 'no' 
-						AND ssm_users.fullname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-				}
-				$grid = '<form name="gridformcustomer" id="gridformcustomer">
+						AND ssm_users.fullname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+					}
+					$grid = '<form name="gridformcustomer" id="gridformcustomer">
 							<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-				
-				$grid .= '<tr class="tr-grid-header">
+
+					$grid .= '<tr class="tr-grid-header">
 							<td nowrap="nowrap" class="td-border-grid">Select</td>
 							<td nowrap="nowrap" class="td-border-grid">User ID</td>
 							<td nowrap="nowrap" class="td-border-grid">User Name</td>
@@ -583,107 +569,100 @@ onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch[
 							<td nowrap="nowrap" class="td-border-grid">Contact Number</td>
 							<td nowrap="nowrap" class="td-border-grid">Location Name</td>
 						</tr>';
-				
-				$result = runmysqlquery($query);
-				$i_n = 0;
-				while($fetch = mysqli_fetch_array($result))
-				{
-					$color;
-					if($i_n%2 == 0)
-					{
-						$color = "#edf4ff";
+
+					$result = runmysqlquery($query);
+					$i_n = 0;
+					while ($fetch = mysqli_fetch_array($result)) {
+						$color;
+						if ($i_n % 2 == 0) {
+							$color = "#edf4ff";
+						} else {
+							$color = "#f7faff";
+						}
+						static $count = 0;
+						$count++;
+						$radioid = 'nameloadcustomerradio' . $count;
+						$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\'' . $radioid . '\').checked=true;					nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\'' . $fetch['slno'] . '\',\'' . $fetch['fullname'] . '\',\'' . $fetch['locationname'] . '\',\'ssmuser\',\'' . $date . '\',\'' . $time . '\',\'\',\'' . $fetch['emailid'] . '\',\'' . $fetch['place'] . '\');" bgcolor=' . $color . '>';
+
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>
+								<input type='radio' name='nameloadcustomerradio' value=" . $fetch['slno'] . " id=" . $radioid . " 
+onclick = \"loadnamesetselect('" . $fetch['slno'] . "','" . $fetch['fullname'] . "','" . $fetch['locationname'] . "','ssmuser','" . $date . "','" . $time . "','','" . $fetch['emailid'] . "','" . $fetch['place'] . "');\" /></td>
+								<td nowrap='nowrap' class='td-border-grid'>" . $fetch['slno'] . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . $fetch['fullname'] . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['supportunit']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['officialemail']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['mobile']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['locationname']) . "</td>";
+
+						$grid .= '</tr>';
 					}
-					else
-					{
-						$color = "#f7faff";
+					$grid .= '</table></form>';
+					echo ($grid);
+					break;
+				}
+
+			case "employee": {
+					switch ($orderby) {
+						case "email":
+							$orderbyfield = "emailid";
+							break;
+						case "phone":
+							$orderbyfield = "contactnumber";
+							break;
+						case "place":
+							$orderbyfield = "place";
+							break;
+						default:
+							$orderbyfield = "oscompanyname";
+							break;
 					}
-					static $count = 0;
-					$count++;
-					$radioid = 'nameloadcustomerradio'.$count;
-					$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\''.$radioid.'\').checked=true;					nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\''.$fetch['slno'].'\',\''.$fetch['fullname'].'\',\''.$fetch['locationname'].'\',\'ssmuser\',\''.$date.'\',\''.$time.'\',\'\',\''.$fetch['emailid'].'\',\''.$fetch['place'].'\');" bgcolor='.$color.'>';
-					
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>
-								<input type='radio' name='nameloadcustomerradio' value=".$fetch['slno']." id=".$radioid." 
-onclick = \"loadnamesetselect('".$fetch['slno']."','".$fetch['fullname']."','".$fetch['locationname']."','ssmuser','".$date."','".$time."','','".$fetch['emailid']."','".$fetch['place']."');\" /></td>
-								<td nowrap='nowrap' class='td-border-grid'>".$fetch['slno']."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".$fetch['fullname']."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['supportunit'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['officialemail'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['mobile'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['locationname'])."</td>";
-				
-					$grid .= '</tr>';
-				}
-				$grid .= '</table></form>';
-				echo($grid);
-				break;
-			}
-			
-			case "employee":
-			{
-				switch($orderby)
-				{
-					case "email":
-						$orderbyfield = "emailid";
-						break;
-					case "phone":
-						$orderbyfield = "contactnumber";
-						break;
-					case "place":
-						$orderbyfield = "place";
-						break;
-					default:
-						$orderbyfield = "oscompanyname";
-						break;
-				}
-				
-				switch($subselection)
-				{
-					case "phone":
-						$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
+
+					switch ($subselection) {
+						case "phone":
+							$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
 						ssm_osmaster.contactnumber ,ssm_osmaster.emailid , ssm_osmaster.category , ssm_osmaster.place ,
 						ssm_osmaster.district ,inv_mas_state.statecode as state
 						FROM ssm_osmaster
 						left join inv_mas_state on inv_mas_state.statename = ssm_osmaster.state
-						WHERE contactnumber LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "place":
-						$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
+						WHERE contactnumber LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "place":
+							$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
 						ssm_osmaster.contactnumber ,ssm_osmaster.emailid , ssm_osmaster.category , ssm_osmaster.place ,
 						ssm_osmaster.district ,inv_mas_state.statecode as state
 						FROM ssm_osmaster
 						left join inv_mas_state on inv_mas_state.statename = ssm_osmaster.state
-						WHERE place LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "category":
-						$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
+						WHERE place LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "category":
+							$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
 						ssm_osmaster.contactnumber ,ssm_osmaster.emailid , ssm_osmaster.category , ssm_osmaster.place ,
 						ssm_osmaster.district ,inv_mas_state.statecode as state
 						FROM ssm_osmaster
 						left join inv_mas_state on inv_mas_state.statename = ssm_osmaster.state
-						WHERE category LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					case "email":
-						$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
+						WHERE category LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						case "email":
+							$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
 						ssm_osmaster.contactnumber ,ssm_osmaster.emailid , ssm_osmaster.category , ssm_osmaster.place ,
 						ssm_osmaster.district ,inv_mas_state.statecode as state
 						FROM ssm_osmaster
 						left join inv_mas_state on inv_mas_state.statename = ssm_osmaster.state
-						WHERE emailid LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-					default:
-						$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
+						WHERE emailid LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+						default:
+							$query = "SELECT ssm_osmaster.slno , ssm_osmaster.oscompanyname ,  ssm_osmaster.osname , 
 						ssm_osmaster.contactnumber ,ssm_osmaster.emailid , ssm_osmaster.category , ssm_osmaster.place ,
 						ssm_osmaster.district ,inv_mas_state.statecode as state
 						FROM ssm_osmaster
 						left join inv_mas_state on inv_mas_state.statename = ssm_osmaster.state
-						WHERE oscompanyname LIKE '%".$textfield."%' ORDER BY ".$orderbyfield;
-						break;
-				}
-				$grid = '<form name="gridformcustomer" id="gridformcustomer">
+						WHERE oscompanyname LIKE '%" . $textfield . "%' ORDER BY " . $orderbyfield;
+							break;
+					}
+					$grid = '<form name="gridformcustomer" id="gridformcustomer">
 							<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-				
-				$grid .= '<tr class="tr-grid-header">
+
+					$grid .= '<tr class="tr-grid-header">
 							<td nowrap="nowrap" class="td-border-grid">Select</td>
 							<td nowrap="nowrap" class="td-border-grid">Sl No</td>
 							<td nowrap="nowrap" class="td-border-grid">OSE Company Name</td>
@@ -695,117 +674,105 @@ onclick = \"loadnamesetselect('".$fetch['slno']."','".$fetch['fullname']."','".$
 							<td nowrap="nowrap" class="td-border-grid">District</td>
 							<td nowrap="nowrap" class="td-border-grid">Skype ID</td>
 						</tr>';
-				
-				$result = runmysqlquery($query);
-				$i_n = 0;
-				while($fetch = mysqli_fetch_array($result))
-				{
-					$color;
-					if($i_n%2 == 0)
-					{
-						$color = "#edf4ff";
-					}
-					else
-					{
-						$color = "#f7faff";
-					}
-					static $count = 0;
-					$count++;
-					$radioid = 'nameloadcustomerradio'.$count;
-					$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\''.$radioid.'\').checked=true;  nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\''.$fetch['slno'].'\',\''.$fetch['oscompanyname'].'\',\''.$fetch['category'].'\',\'employee\',\''.$date.'\',\''.$time.'\',\''.$fetch['state'].'\',\''.$fetch['emailid'].'\',\''.$fetch['place'].'\');" bgcolor='.$color.'>';
-					
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>
-								<input type='radio' name='nameloadcustomerradio' value=".$fetch['slno']." id=".$radioid." onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('".$fetch['slno']."','".$fetch['oscompanyname']."','".$fetch['category']."','employee','".$date."','".$time."','".$fetch['state']."','".$fetch['emailid']."','".$fetch['place']."');\" /></td>
-								<td nowrap='nowrap' class='td-border-grid'>".$fetch['slno']."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".$fetch['oscompanyname']."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['osname'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['contactnumber'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['emailid'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['category'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['place'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['district'])."</td>
-								<td nowrap='nowrap' class='td-border-grid'>".$fetch['skypeid']."</td>";
-					$grid .= '</tr>';
-				}
-				$grid .= '</table></form>';
-				echo($grid);
-				break;
-			}
-			default:
-				echo("Nameload Script Server Page Failed.");
-				break;
-		}	
-	}
-}
 
-elseif($_POST['type'] == 2)
-{
+					$result = runmysqlquery($query);
+					$i_n = 0;
+					while ($fetch = mysqli_fetch_array($result)) {
+						$color;
+						if ($i_n % 2 == 0) {
+							$color = "#edf4ff";
+						} else {
+							$color = "#f7faff";
+						}
+						static $count = 0;
+						$count++;
+						$radioid = 'nameloadcustomerradio' . $count;
+						$grid .= '<tr class="gridrow" onclick="javascript: document.getElementById(\'' . $radioid . '\').checked=true;  nameloadregistration(\'gridformcustomer\'); loadnamesetselect(\'' . $fetch['slno'] . '\',\'' . $fetch['oscompanyname'] . '\',\'' . $fetch['category'] . '\',\'employee\',\'' . $date . '\',\'' . $time . '\',\'' . $fetch['state'] . '\',\'' . $fetch['emailid'] . '\',\'' . $fetch['place'] . '\');" bgcolor=' . $color . '>';
+
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>
+								<input type='radio' name='nameloadcustomerradio' value=" . $fetch['slno'] . " id=" . $radioid . " onclick=\"nameloadregistration('gridformcustomer'); loadnamesetselect('" . $fetch['slno'] . "','" . $fetch['oscompanyname'] . "','" . $fetch['category'] . "','employee','" . $date . "','" . $time . "','" . $fetch['state'] . "','" . $fetch['emailid'] . "','" . $fetch['place'] . "');\" /></td>
+								<td nowrap='nowrap' class='td-border-grid'>" . $fetch['slno'] . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . $fetch['oscompanyname'] . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['osname']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['contactnumber']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['emailid']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['category']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['place']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . gridtrim($fetch['district']) . "</td>
+								<td nowrap='nowrap' class='td-border-grid'>" . $fetch['skypeid'] . "</td>";
+						$grid .= '</tr>';
+					}
+					$grid .= '</table></form>';
+					echo ($grid);
+					break;
+				}
+			default:
+				echo ("Nameload Script Server Page Failed.");
+				break;
+		}
+	}
+} elseif ($_POST['type'] == 2) {
 	$customerdb = $_POST['customerdb'];
 	$cusid = $_POST['cusid'];
-	switch($customerdb)
-	{
+	switch ($customerdb) {
 		case "invcustomer":
 			//Blocked code for ineffecient query, by manjunath 04/06/14
 			/*$query = "SELECT inv_mas_product.productname as productname, 
-			inv_mas_scratchcard.scratchnumber AS scratchnumber, 
-			inv_customerproduct.computerid AS computerid,inv_customerproduct.softkey AS softkey,
-			inv_customerproduct.date AS regdate, inv_customerproduct.time AS regtime, inv_mas_users.fullname AS generatedby, 
-			inv_mas_dealer.businessname AS businessname 
-			FROM inv_mas_dealer 
-			JOIN (inv_customerproduct  
-			JOIN inv_mas_scratchcard ON inv_customerproduct.cardid = inv_mas_scratchcard.cardid) 
-			ON inv_mas_dealer.slno = inv_customerproduct.dealerid left 
-			JOIN inv_mas_product ON inv_mas_product.productcode = left(inv_customerproduct.computerid,3)  
-			JOIN inv_mas_users ON inv_mas_users.slno = inv_customerproduct.generatedby 
-			where inv_customerproduct.customerreference = '".$cusid."' ORDER BY regdate desc , regtime desc; "; 
-			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
-			$grid .= '<tr class="tr-grid-header">
-						<td nowrap="nowrap" class="td-border-grid">Scratch No</td>
-						<td nowrap="nowrap" class="td-border-grid">Computer ID</td>
-						<td nowrap="nowrap" class="td-border-grid">Soft Key</td>
-						<td nowrap="nowrap" class="td-border-grid">Generated By</td>
-						<td nowrap="nowrap" class="td-border-grid">Dealer</td>
-						<td nowrap="nowrap" class="td-border-grid">Date</td>
-						<td nowrap="nowrap" class="td-border-grid">Time</td>
-					</tr>';
-			$result = runmysqlquery($query);
-			$i_n = 0;
-			while($fetch = mysqli_fetch_array($result))
-			{
-				$color;
-				if($i_n%2 == 0)
-					$color = "#edf4ff";
-				else
-					$color = "#f7faff";
-				$grid .= '<tr class="gridrow" bgcolor='.$color.'>';
-				$grid .= "<td nowrap='nowrap' class='td-border-grid'>".$fetch['scratchnumber']."</td>
-						 <td nowrap='nowrap' class='td-border-grid'>".$fetch['computerid']."</td>
-						 <td nowrap='nowrap' class='td-border-grid'>".$fetch['softkey']."</td>
-						 <td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['generatedby'])."</td>
-						 <td nowrap='nowrap' class='td-border-grid'>".$fetch['businessname']."</td>
-						 <td nowrap='nowrap' class='td-border-grid'>".$fetch['regdate']."</td>
-						 <td nowrap='nowrap' class='td-border-grid'>".$fetch['regtime']."</td>";
-				$grid .= '</tr>';
-			}*/
-			
+					 inv_mas_scratchcard.scratchnumber AS scratchnumber, 
+					 inv_customerproduct.computerid AS computerid,inv_customerproduct.softkey AS softkey,
+					 inv_customerproduct.date AS regdate, inv_customerproduct.time AS regtime, inv_mas_users.fullname AS generatedby, 
+					 inv_mas_dealer.businessname AS businessname 
+					 FROM inv_mas_dealer 
+					 JOIN (inv_customerproduct  
+					 JOIN inv_mas_scratchcard ON inv_customerproduct.cardid = inv_mas_scratchcard.cardid) 
+					 ON inv_mas_dealer.slno = inv_customerproduct.dealerid left 
+					 JOIN inv_mas_product ON inv_mas_product.productcode = left(inv_customerproduct.computerid,3)  
+					 JOIN inv_mas_users ON inv_mas_users.slno = inv_customerproduct.generatedby 
+					 where inv_customerproduct.customerreference = '".$cusid."' ORDER BY regdate desc , regtime desc; "; 
+					 $grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
+					 $grid .= '<tr class="tr-grid-header">
+								 <td nowrap="nowrap" class="td-border-grid">Scratch No</td>
+								 <td nowrap="nowrap" class="td-border-grid">Computer ID</td>
+								 <td nowrap="nowrap" class="td-border-grid">Soft Key</td>
+								 <td nowrap="nowrap" class="td-border-grid">Generated By</td>
+								 <td nowrap="nowrap" class="td-border-grid">Dealer</td>
+								 <td nowrap="nowrap" class="td-border-grid">Date</td>
+								 <td nowrap="nowrap" class="td-border-grid">Time</td>
+							 </tr>';
+					 $result = runmysqlquery($query);
+					 $i_n = 0;
+					 while($fetch = mysqli_fetch_array($result))
+					 {
+						 $color;
+						 if($i_n%2 == 0)
+							 $color = "#edf4ff";
+						 else
+							 $color = "#f7faff";
+						 $grid .= '<tr class="gridrow" bgcolor='.$color.'>';
+						 $grid .= "<td nowrap='nowrap' class='td-border-grid'>".$fetch['scratchnumber']."</td>
+								  <td nowrap='nowrap' class='td-border-grid'>".$fetch['computerid']."</td>
+								  <td nowrap='nowrap' class='td-border-grid'>".$fetch['softkey']."</td>
+								  <td nowrap='nowrap' class='td-border-grid'>".gridtrim($fetch['generatedby'])."</td>
+								  <td nowrap='nowrap' class='td-border-grid'>".$fetch['businessname']."</td>
+								  <td nowrap='nowrap' class='td-border-grid'>".$fetch['regdate']."</td>
+								  <td nowrap='nowrap' class='td-border-grid'>".$fetch['regtime']."</td>";
+						 $grid .= '</tr>';
+					 }*/
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header">
 						<td nowrap="nowrap" class="td-border-grid" colspan=7>Oops! Problem in retriving data, we will be back soon.</td>
 						</tr></table>';
-			echo($grid);
+			echo ($grid);
 			break;
 	}
-}
-
-elseif($_POST['type'] == 3)
-{
+} elseif ($_POST['type'] == 3) {
 	$customerdb = $_POST['customerdb'];
 	$cusid = $_POST['cusid'];
-	
-	switch($customerdb)
-	{
+
+	switch ($customerdb) {
 		case 'call':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header">
 						<td nowrap = "nowrap" class="td-border-grid">Sl No</td>
@@ -834,7 +801,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 						<td nowrap = "nowrap" class="td-border-grid">End Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_callregister.slno AS slno,ssm_callregister.anonymous AS anonymous, 
 			ssm_callregister.customername AS customername,  ssm_callregister.customerid AS customerid, 
 			ssm_callregister.date AS date, ssm_callregister.time AS time, ssm_callregister.personname AS personname,
@@ -854,29 +821,27 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_callregister.authorizedgroup 
 			left join inv_mas_state on inv_mas_state.slno = ssm_callregister.state  
-			WHERE customerid = '".$cusid."' ORDER BY   `date` DESC, `time` DESC ";
+			WHERE customerid = '" . $cusid . "' ORDER BY   `date` DESC, `time` DESC ";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				$color = "#edf4ff";
-			else
-				$color = "#f7faff";
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 4)
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')	$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";	
-						else $grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-					}
-					else
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+				if ($i_n % 2 == 0)
+					$color = "#edf4ff";
+				else
+					$color = "#f7faff";
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 4)
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					elseif ($i == 1) {
+						if ($fetch[1] == 'yes')
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						else
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
+					} else
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 				}
 				$grid .= '</tr>';
 			}
@@ -884,9 +849,9 @@ elseif($_POST['type'] == 3)
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_callregister");
 			break;
-		
+
 		case 'email':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header">
 						<td nowrap = "nowrap" class="td-border-grid">Sl No</td>
@@ -917,7 +882,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_emailregister.slno AS slno,ssm_emailregister.anonymous AS anonymous,
 			ssm_emailregister.customername AS customername,ssm_emailregister.customerid AS customerid,
 			ssm_products.productname AS productname,ssm_emailregister.productversion AS  productversion,
@@ -939,40 +904,38 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_emailregister.authorizedgroup 
 			left join inv_mas_state on inv_mas_state.slno = ssm_emailregister.state  
-			WHERE customerid = '".$cusid."' ORDER BY   `date` DESC, `time` DESC";
+			WHERE customerid = '" . $cusid . "' ORDER BY   `date` DESC, `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				$color = "#edf4ff";
-			else
-				$color = "#f7faff";
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 7)
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')	$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";	
-						else $grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-					}
-					else
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+				if ($i_n % 2 == 0)
+					$color = "#edf4ff";
+				else
+					$color = "#f7faff";
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 7)
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					elseif ($i == 1) {
+						if ($fetch[1] == 'yes')
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						else
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
+					} else
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 				}
 				$grid .= '</tr>';
 			}
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_emailregister");
-			
+
 			break;
-			
+
 		case 'error':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header">
 						<td nowrap = "nowrap" class="td-border-grid">Sl No</td>
@@ -1003,7 +966,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_errorregister.slno AS slno, ssm_errorregister.flag AS flag,
 			ssm_errorregister.anonymous AS anonymous, ssm_errorregister.customername AS customername,
 			ssm_products.productname AS productname,ssm_errorregister.productversion AS productversion,
@@ -1024,40 +987,38 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_errorregister.authorizedgroup
 			left join inv_mas_state on inv_mas_state.slno = ssm_errorregister.state     
-			WHERE customerid = '".$cusid."' ORDER BY   `date` DESC, `time` DESC";
+			WHERE customerid = '" . $cusid . "' ORDER BY   `date` DESC, `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				$color = "#edf4ff";
-			else
-				$color = "#f7faff";
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 7 || $i == 15)
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')	$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";	
-						else $grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-					}				
-					else
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+				if ($i_n % 2 == 0)
+					$color = "#edf4ff";
+				else
+					$color = "#f7faff";
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 7 || $i == 15)
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					elseif ($i == 1) {
+						if ($fetch[1] == 'yes')
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						else
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
+					} else
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 				}
 				$grid .= '</tr>';
 			}
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_errorregister");
-			
+
 			break;
-			
+
 		case 'inhouse':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header"><td nowrap = "nowrap" class="td-border-grid">Sl No</td>
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
@@ -1088,7 +1049,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_inhouseregister.slno AS slno, ssm_inhouseregister.flag AS flag ,
 			ssm_inhouseregister.anonymous AS anonymous, ssm_inhouseregister.customername AS customername, 
 			ssm_inhouseregister.customerid AS customerid, ssm_inhouseregister.date AS date, 
@@ -1112,42 +1073,29 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit = ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_inhouseregister.authorizedgroup
 			left join inv_mas_state on inv_mas_state.slno = ssm_inhouseregister.state   
-			WHERE customerid = '".$cusid."' ORDER BY   `date` DESC , `time` DESC";
+			WHERE customerid = '" . $cusid . "' ORDER BY   `date` DESC , `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				{
+				if ($i_n % 2 == 0) {
 					$color = "#edf4ff";
-				}
-				else
-				{
+				} else {
 					$color = "#f7faff";
 				}
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 5)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')
-						{
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 5) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 1) {
+						if ($fetch[1] == 'yes') {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
-						}
-						else
-						{
+						} else {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-					}
-					else
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+					} else {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 					}
 				}
 				$grid .= '</tr>';
@@ -1155,11 +1103,11 @@ elseif($_POST['type'] == 3)
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_inhouseregister");
-			
+
 			break;
-			
+
 		case 'onsite':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header"><td nowrap = "nowrap" class="td-border-grid">Sl No</td>
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
@@ -1198,7 +1146,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_onsiteregister.slno AS slno, ssm_onsiteregister.flag AS flag ,
 			ssm_onsiteregister.anonymous AS anonymous, ssm_onsiteregister.customername AS customername, 
 			ssm_onsiteregister.customerid AS customerid, ssm_onsiteregister.date AS date, 
@@ -1226,52 +1174,40 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits AS ssm_supportunits1 on ssm_supportunits1.slno = ssm_onsiteregister.supportunit 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_onsiteregister.authorizedgroup 
 			left join inv_mas_state on inv_mas_state.slno = ssm_onsiteregister.state 
-			WHERE  customerid = '".$cusid."' ORDER BY date DESC, `time` DESC";
+			WHERE  customerid = '" . $cusid . "' ORDER BY date DESC, `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				{
+				if ($i_n % 2 == 0) {
 					$color = "#edf4ff";
-				}
-				else
-				{
+				} else {
 					$color = "#f7faff";
 				}
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 5 || $i == 24 || $i == 26)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')	
-						{
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 5 || $i == 24 || $i == 26) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 1) {
+						if ($fetch[1] == 'yes') {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						} else {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-						else 
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-						}
-					}
-					else
-					$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+					} else
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 				}
 				$grid .= '</tr>';
 			}
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_onsiteregister");
-			
+
 			break;
-			
+
 		case 'reference':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header"><td nowrap = "nowrap" class="td-border-grid">Sl No</td>
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
@@ -1297,7 +1233,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_referenceregister.slno AS slno,ssm_referenceregister.flag AS flag,
 			ssm_referenceregister.anonymous AS anonymous,ssm_referenceregister.customername AS customername,
 			ssm_products.productname AS productname, ssm_referenceregister.date AS date, 
@@ -1318,38 +1254,28 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_referenceregister.authorizedgroup
 			left join inv_mas_state on inv_mas_state.slno = ssm_referenceregister.state   
-			WHERE  customerid = '".$cusid."' ORDER BY  `date` DESC, `time` DESC ";
+			WHERE  customerid = '" . $cusid . "' ORDER BY  `date` DESC, `time` DESC ";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				$color = "#edf4ff";
-			else
-				$color = "#f7faff";
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 5)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";	
+				if ($i_n % 2 == 0)
+					$color = "#edf4ff";
+				else
+					$color = "#f7faff";
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 5) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 1) {
+						if ($fetch[1] == 'yes') {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						} else {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-						else
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-						}
-					}
-					else
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+					} else {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 					}
 				}
 				$grid .= '</tr>';
@@ -1357,11 +1283,11 @@ elseif($_POST['type'] == 3)
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_referenceregister");
-			
+
 			break;
-			
+
 		case 'requirement':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header"><td nowrap = "nowrap" class="td-border-grid">Sl No</td>
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
@@ -1388,7 +1314,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_requirementregister.slno AS slno, ssm_requirementregister.flag AS flag, 
 			ssm_requirementregister.anonymous AS anonymous,ssm_requirementregister.customername AS customername, 
 			ssm_products.productname AS productname, ssm_requirementregister.productversion AS productversion, 
@@ -1409,42 +1335,29 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_requirementregister.authorizedgroup  
 			left join inv_mas_state on inv_mas_state.slno = ssm_requirementregister.state 
-			WHERE  customerid = '".$cusid."' ORDER BY  `date` DESC , `time` DESC";
+			WHERE  customerid = '" . $cusid . "' ORDER BY  `date` DESC , `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				{
+				if ($i_n % 2 == 0) {
 					$color = "#edf4ff";
-				}
-				else
-				{
+				} else {
 					$color = "#f7faff";
 				}
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 7)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')	
-						{
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 7) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 1) {
+						if ($fetch[1] == 'yes') {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						} else {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-						else 
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-						}
-					}
-					else
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+					} else {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 					}
 				}
 				$grid .= '</tr>';
@@ -1452,11 +1365,11 @@ elseif($_POST['type'] == 3)
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_requirementregister");
-			
+
 			break;
-			
+
 		case 'skype':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header"><td nowrap = "nowrap" class="td-border-grid">Sl No</td>
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
@@ -1484,7 +1397,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_skyperegister.slno AS slno, ssm_skyperegister.flag AS flag,
 			ssm_skyperegister.anonymous AS anonymous, ssm_skyperegister.customername AS customername, 
 			ssm_skyperegister.customerid AS customerid, ssm_skyperegister.sender AS sender, 
@@ -1503,40 +1416,30 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno =ssm_skyperegister.authorizedgroup 
 			left join inv_mas_state on inv_mas_state.slno = ssm_skyperegister.state  
-			WHERE customerid = '".$cusid."' ORDER BY  `date` DESC, `time` DESC ";
+			WHERE customerid = '" . $cusid . "' ORDER BY  `date` DESC, `time` DESC ";
 			$result = runmysqlquery($query);
-	
+
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				$color = "#edf4ff";
-			else
-				$color = "#f7faff";
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 7)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 1)
-					{
-						if($fetch[1] == 'yes')	
-						{
+				if ($i_n % 2 == 0)
+					$color = "#edf4ff";
+				else
+					$color = "#f7faff";
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 7) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 1) {
+						if ($fetch[1] == 'yes') {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						} else {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-						else
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-						}
-					}
-					else
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
-					
+					} else {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
+
 					}
 				}
 				$grid .= '</tr>';
@@ -1544,11 +1447,11 @@ elseif($_POST['type'] == 3)
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_skyperegister");
-			
+
 			break;
-			
+
 		case 'invoice':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header">
 						<td nowrap = "nowrap" class="td-border-grid">Sl No</td>
@@ -1592,42 +1495,29 @@ elseif($_POST['type'] == 3)
 			LEFT JOIN ssm_users AS ssm_users3  on ssm_users3.slno = ssm_invoice.authorizedperson 
 			LEFT JOIN ssm_supportunits on ssm_users1.supportunit =ssm_supportunits.slno 
 			LEFT JOIN ssm_category on ssm_category.slno = ssm_invoice.authorizedgroup 
-			WHERE customerid = '".$cusid."' ORDER BY   `date` DESC, `time` DESC";
+			WHERE customerid = '" . $cusid . "' ORDER BY   `date` DESC, `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				{
+				if ($i_n % 2 == 0) {
 					$color = "#edf4ff";
-				}
-				else
-				{
+				} else {
 					$color = "#f7faff";
 				}
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 3)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 23)
-					{
-						if($fetch[23] == 'yes')	
-						{
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 3) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 23) {
+						if ($fetch[23] == 'yes') {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						} else {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-						else 
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-						}
-					}
-					else
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
+					} else {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 					}
 				}
 				$grid .= '</tr>';
@@ -1635,11 +1525,11 @@ elseif($_POST['type'] == 3)
 			$grid .= '</table>';
 			$fetchcount = mysqli_num_rows($result);
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_invoice");
-			
+
 			break;
-			
+
 		case 'receipt':
-		 
+
 			$grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 			$grid .= '<tr class="tr-grid-header"><td nowrap = "nowrap" class="td-border-grid">Sl No</td>
 						<td nowrap = "nowrap" class="td-border-grid">Customer Name</td>
@@ -1662,7 +1552,7 @@ elseif($_POST['type'] == 3)
 						<td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
 						<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 					</tr>';
-			
+
 			$query = "SELECT ssm_receipts.slno AS slno,ssm_receipts.customername AS customername,
 			 ssm_receipts.customerid AS customerid, ssm_receipts.date AS date,ssm_receipts.time AS time,
 			 ssm_receipts.billdate AS billdate,ssm_receipts.billno AS billno,ssm_receipts.receiptno AS receiptno,
@@ -1677,43 +1567,30 @@ elseif($_POST['type'] == 3)
 			 LEFT JOIN ssm_users AS ssm_users2  on ssm_users2.slno = ssm_receipts.authorizedperson 
 			 LEFT JOIN ssm_supportunits on ssm_users1.supportunit = ssm_supportunits.slno 
 			 LEFT JOIN ssm_category on ssm_category.slno =ssm_receipts.authorizedgroup 
-			 WHERE customerid = '".$cusid."' ORDER BY  `date` DESC , `time` DESC";
+			 WHERE customerid = '" . $cusid . "' ORDER BY  `date` DESC , `time` DESC";
 			$result = runmysqlquery($query);
 			$i_n = 0;
-			while($fetch = mysqli_fetch_row($result))
-			{
+			while ($fetch = mysqli_fetch_row($result)) {
 				$i_n++;
 				$color;
-				if($i_n%2 == 0)
-				{
+				if ($i_n % 2 == 0) {
 					$color = "#edf4ff";
-				}
-				else
-				{
+				} else {
 					$color = "#f7faff";
 				}
-				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform('.$fetch[0].');" bgcolor='.$color.'>';
-				for($i = 0; $i < count($fetch); $i++)
-				{
-					if($i == 3 || $i == 5 || $i == 8)
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-					}
-					elseif($i == 19)
-					{
-						if($fetch[19] == 'yes')	
-						{
+				$grid .= '<tr class="gridrow" onclick="javascript:gridtoform(' . $fetch[0] . ');" bgcolor=' . $color . '>';
+				for ($i = 0; $i < count($fetch); $i++) {
+					if ($i == 3 || $i == 5 || $i == 8) {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+					} elseif ($i == 19) {
+						if ($fetch[19] == 'yes') {
 							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flag.png' width='14' height='14' border='0' /></td>";
+						} else {
+							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";
 						}
-						else 
-						{
-							$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' height='14' border='0' /></td>";	
-						}
-					}
-					else
-					{
-						$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
-				
+					} else {
+						$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
+
 					}
 				}
 				$grid .= '</tr>';
@@ -1723,7 +1600,7 @@ elseif($_POST['type'] == 3)
 			$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_receipts");
 			break;
 	}
-	echo($grid."|^^|"."Filtered ".$fetchcount." records found from ".$query['count']).".";
+	echo ($grid . "|^^|" . "Filtered " . $fetchcount . " records found from " . $query['count']) . ".";
 }
 
 

@@ -112,23 +112,29 @@ else {
                           </tr>
                           <tr bgcolor="#edf4ff">
                             <td valign="top">Product Version:</td>
-                            <td valign="top"><span id="productversiondisplay"><select name="productversion"
-                                  id="productversion" class="swiftselect">
+                            <td valign="top">
+                              <span id="productversiondisplay">
+                                <select name="productversion" id="productversion" class="swiftselect">
                                   <option value="">Make A Selection</option>
-                                </select> </span> </td>
+                                </select>
+                              </span>
+                            </td>
                           </tr>
                           <tr bgcolor="#f7faff">
                             <td valign="top">Database:</td>
-                            <td valign="top"><select name="database" id="database" class="swiftselect">
+                            <td valign="top">
+                              <select name="database" id="database" class="swiftselect">
                                 <option value="">Make A Selection</option>
                                 <option value="access">MS Access</option>
                                 <option value="sql">MS SQL</option>
                                 <option value="mysql">MySQL</option>
-                              </select></td>
+                              </select>
+                            </td>
                           </tr>
                           <tr bgcolor="#edf4ff">
                             <td valign="top">Error Reported:</td>
-                            <td valign="top"><textarea name="errorreported" cols="45" class="swifttextarea"
+                            <td valign="top">
+                              <textarea name="errorreported" cols="45" class="swifttextarea"
                                 id="errorreported"></textarea>
                               <a href="javascript:void(0);" style="cursor:pointer"
                                 onclick="getquestionfunc(); getquestion();"><img src="../images/get-problem.gif"
@@ -147,8 +153,9 @@ else {
                           </tr>
                           <tr bgcolor="#f7faff">
                             <td valign="top">Error File:</td>
-                            <td valign="top"><input name="errorfile" type="text" class="swifttext" id="errorfile"
-                                size="30" autocomplete="off" readonly="readonly" style="background:#FEFFE6;" />
+                            <td valign="top">
+                              <input name="errorfile" type="text" class="swifttext" id="errorfile" size="30"
+                                autocomplete="off" readonly="readonly" style="background:#FEFFE6;" />
                               <img id="myfileuploadimage" src="../images/fileattach.jpg" border="0" align="absmiddle"
                                 onclick="fileuploaddivid('downloadlinkfile','errorfile','fileuploaddiv','430px','20%')" />
                               <span id="downloadlinkfile"></span>
@@ -224,8 +231,8 @@ else {
                             <td width="60%" height="35" align="left" valign="middle">
                               <div id="form-error"></div>
                             </td>
-                            <td width="40%" height="35" align="right" valign="middle"><input name="new" type="reset"
-                                class="swiftchoicebutton" id="new" value="New"
+                            <td width="40%" height="35" align="right" valign="middle">
+                              <input name="new" type="reset" class="swiftchoicebutton" id="new" value="New"
                                 onclick="setradiovalue(document.getElementById('submitform').anonymous, 'no'); newentry(); formsubmitcustomer(); clearinnerhtml(); gettime();" />
                               &nbsp;&nbsp;&nbsp;
                               <input name="save" type="submit" class="swiftchoicebutton" id="save" value="Save"

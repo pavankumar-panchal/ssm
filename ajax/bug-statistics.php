@@ -7,25 +7,29 @@ $productgroup = $_POST['s_productgroup'];
 $productname = $_POST['productname'];
 $fromdate = $_POST['fromdate'];
 $todate = $_POST['todate'];
-$errorreported =$_POST['errorreported'];
+$errorreported = $_POST['errorreported'];
 $status = $_POST['status'];
 $userid = $_POST['userid'];
 $reportedto = $_POST['reportedto'];
 $customername = $_POST['customername'];
 
 
-$s_customernamepiece = ($customername == "")?(""):(" AND ssm_errorregister.customername LIKE '%".$customername."%'"); 
-$s_errorreportedpiece = ($errorreported == "")?(""):(" AND ssm_errorregister.errorreported LIKE '%".$errorreported."%'"); 
-$s_reportedtopiece = ($reportedto == "")?(""):(" AND ssm_errorregister.reportedto LIKE '%".$reportedto."%'"); 
-$s_statuspiece = ($status == "")?(""):(" AND ssm_errorregister.status LIKE '%".$status."%'"); 
-$s_useridpiece = ($userid == "")?(""):(" AND ssm_errorregister.userid = '".$userid."'"); 
+$s_customernamepiece = ($customername == "") ? ("") : (" AND ssm_errorregister.customername LIKE '%" . $customername . "%'");
+$s_errorreportedpiece = ($errorreported == "") ? ("") : (" AND ssm_errorregister.errorreported LIKE '%" . $errorreported . "%'");
+$s_reportedtopiece = ($reportedto == "") ? ("") : (" AND ssm_errorregister.reportedto LIKE '%" . $reportedto . "%'");
+$s_statuspiece = ($status == "") ? ("") : (" AND ssm_errorregister.status LIKE '%" . $status . "%'");
+$s_useridpiece = ($userid == "") ? ("") : (" AND ssm_errorregister.userid = '" . $userid . "'");
 
 $grid = '<table width="100%" cellpadding="3" cellspacing="0" class="table-border-grid">';
 
 $grid .= '<tr class="tr-grid-header">
 			<td nowrap = "nowrap" class="td-border-grid"><input type="checkbox" name="selectedcheckbox" id="selectedcheckbox" 
 value="" onclick="javascript:checkAll(this)" /></td>';
-$grid .= '<td nowrap = "nowrap" class="td-border-grid">Flag</td>
+$grid .= '
+
+
+
+<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 		  <td nowrap = "nowrap" class="td-border-grid">Reported By</td>
 		  <td nowrap = "nowrap" class="td-border-grid">Product Group</td>
 		  <td nowrap = "nowrap" class="td-border-grid">Product Name</td>
@@ -50,9 +54,13 @@ $grid .= '<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 		  <td nowrap = "nowrap" class="td-border-grid">Team Leader Remarks</td>
 		  <td nowrap = "nowrap" class="td-border-grid">Authorized Person</td>
 		  <td nowrap = "nowrap" class="td-border-grid">Authorized Date&Time</td>
-		 </tr>';
+		 </tr>
+		 
+		 
+		 
+		 ';
 
-	$query = "SELECT ssm_errorregister.slno AS slno, ssm_errorregister.flag AS flag, ssm_errorregister.customername AS 
+$query = "SELECT ssm_errorregister.slno AS slno, ssm_errorregister.flag AS flag, ssm_errorregister.customername AS 
 	customername,ssm_errorregister.productgroup AS productgroup,ssm_products.productname  AS productname,
 	ssm_errorregister.productversion AS productversion,ssm_errorregister.database AS `database`,ssm_errorregister.date AS date,
 	ssm_errorregister.time AS time,ssm_errorregister.errorreported AS errorreported,ssm_errorregister.errorunderstood 
@@ -68,44 +76,42 @@ $grid .= '<td nowrap = "nowrap" class="td-border-grid">Flag</td>
 	LEFT JOIN ssm_users AS ssm_users1 on ssm_users1.slno = ssm_errorregister.authorizedperson 
 	LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno 
 	LEFT JOIN ssm_category on ssm_category.slno =ssm_errorregister.authorizedgroup  
-	WHERE ssm_errorregister.date BETWEEN '".changedateformat($fromdate)."' AND '".changedateformat($todate)."' 
-	AND ssm_errorregister.productname = '".$productname."'".$s_customernamepiece.$s_errorreportedpiece.$s_reportedtopiece.
-	$s_statuspiece.$s_useridpiece." ORDER BY `date` DESC ; ";
-	
-	$result = runmysqlquery($query);
-	
+	WHERE ssm_errorregister.date BETWEEN '" . changedateformat($fromdate) . "' AND '" . changedateformat($todate) . "' 
+	AND ssm_errorregister.productname = '" . $productname . "'" . $s_customernamepiece . $s_errorreportedpiece . $s_reportedtopiece .
+	$s_statuspiece . $s_useridpiece . " ORDER BY `date` DESC ; ";
+
+$result = runmysqlquery($query);
+
 $i_n = 0;
-while($fetch = mysqli_fetch_row($result))
-{
+while ($fetch = mysqli_fetch_row($result)) {
 	static $count = 0;
 	$count++;
 	$i_n++;
 	$color;
-	if($i_n%2 == 0)
+	if ($i_n % 2 == 0)
 		$color = "#edf4ff";
 	else
 		$color = "#f7faff";
 	$grid .= '<tr class="gridrow">';
-	$grid .= "<td nowrap='nowrap' class='td-border-grid'><input type='checkbox' name='check[]' value='".$fetch[0]."'/></td>";
-	for($i = 1; $i < count($fetch); $i++)
-	{
-			if($i == 7 || $i == 14)
-				$grid .= "<td nowrap='nowrap' class='td-border-grid'>".changedateformat($fetch[$i])."</td>";
-			elseif($i == 1)
-			{
-				if($fetch[1] == 'yes')	$grid .= "<td nowrap='nowrap' class='td-border-grid'>
-<img src='../images/flag.png' width='14' height='14' border='0' /></td>";	
-				else $grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' 
-height='14' border='0' /></td>";	
-			}				
+	$grid .= "<td nowrap='nowrap' class='td-border-grid'><input type='checkbox' name='check[]' value='" . $fetch[0] . "'/></td>";
+	for ($i = 1; $i < count($fetch); $i++) {
+		if ($i == 7 || $i == 14)
+			$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . changedateformat($fetch[$i]) . "</td>";
+		elseif ($i == 1) {
+			if ($fetch[1] == 'yes')
+				$grid .= "<td nowrap='nowrap' class='td-border-grid'>
+<img src='../images/flag.png' width='14' height='14' border='0' /></td>";
 			else
-				$grid .= "<td nowrap='nowrap' class='td-border-grid'>".wordwrap($fetch[$i], 75, "<br />\n")."</td>";
-		}
-		$grid .= '</tr>';
+				$grid .= "<td nowrap='nowrap' class='td-border-grid'><img src='../images/flaginactive.png' width='14' 
+height='14' border='0' /></td>";
+		} else
+			$grid .= "<td nowrap='nowrap' class='td-border-grid'>" . wordwrap($fetch[$i], 75, "<br />\n") . "</td>";
 	}
-	$grid .= '</table>';
-	
-	$fetchcount = mysqli_num_rows($result);
-	$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_errorregister");
-	echo($grid."|^^|"."Filtered ".$fetchcount." records found from ".$query['count']).".";
+	$grid .= '</tr>';
+}
+$grid .= '</table>';
+
+$fetchcount = mysqli_num_rows($result);
+$query = runmysqlqueryfetch("SELECT COUNT(*) AS count FROM ssm_errorregister");
+echo ($grid . "|^^|" . "Filtered " . $fetchcount . " records found from " . $query['count']) . ".";
 ?>

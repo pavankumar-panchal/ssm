@@ -1,5 +1,7 @@
 <?php
-session_start();
+
+
+// session_start();
 require_once('../functions/phpfunctions.php');
 $month = date('m');
 if ($month >= '04')

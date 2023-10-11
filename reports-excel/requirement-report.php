@@ -1,12 +1,9 @@
 <?php
 include('../functions/phpfunctions.php');
 $grid = '';
-if(isset($_POST['requirementreportgrid']))
-{
+if (isset($_POST['requirementreportgrid'])) {
 	$grid = $_POST['requirementreportgrid'];
-}
-else
-{	
+} else {
 	$grid = '<table width="100%" cellpadding="3" cellspacing="0" border="1"><tr bgcolor="#4f81bd">
 	<td width="9%"><strong><font color="#FFFFFF" style="font-size:11px; font-family:Calibri;">Requirement ID</font></strong></td>
 	<td width="10%"><strong><font color="#FFFFFF" style="font-size:11px; font-family:Calibri;">Product Name</font></strong></td>
@@ -17,12 +14,11 @@ else
 	<td width="10%"><strong><font color="#FFFFFF" style="font-size:11px; font-family:Calibri;">Reported By</font></strong></td>
 	<td width="10%"><strong><font color="#FFFFFF" style="font-size:11px; font-family:Calibri;">Customer Reference</font></strong></td><tr>';
 	$i_n = 0;
-	for($i = 0; $i<count($_POST["check"]); $i++)
-	{
+	for ($i = 0; $i < count($_POST["check"]); $i++) {
 		$bugloadnos = $_POST["check"][$i];
 		$i_n++;
 		$color;
-		if($i_n%2 == 0)
+		if ($i_n % 2 == 0)
 			$color = "#dbe5f1";
 		else
 			$color = "#ffffff";
@@ -36,40 +32,38 @@ else
 		ssm_requirementregister.customername AS customername
 		FROM ssm_requirementregister LEFT JOIN ssm_products ON ssm_products.slno = ssm_requirementregister.productname 
 		LEFT JOIN ssm_users AS ssm_users on ssm_users.slno = ssm_requirementregister.userid 
-		LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno  WHERE ssm_requirementregister.slno = '".$bugloadnos."' ORDER BY  `date` DESC ";
-		
+		LEFT JOIN ssm_supportunits on ssm_users.supportunit =ssm_supportunits.slno  WHERE ssm_requirementregister.slno = '" . $bugloadnos . "' ORDER BY  `date` DESC ";
+
 		$fetch = runmysqlqueryfetch($query);
-		
-		$grid .= '<tr bgcolor='.$color.'>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['requirementid'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['productname'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['productversion'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['database'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['requirement'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['remarks'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['userid'].'</font></td>
-		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">'.$fetch['customername'].'</font></td>
+
+		$grid .= '<tr bgcolor=' . $color . '>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['requirementid'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['productname'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['productversion'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['database'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['requirement'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['remarks'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['userid'] . '</font></td>
+		<td><font color="#333333" style="font-size:11px; font-family:Calibri;">' . $fetch['customername'] . '</font></td>
 		</tr>';
 	}
 	$grid .= '</table>';
 }
 
-	$localdate = datetimelocal('Ymd');
-	$localtime = datetimelocal('His');
-	$filebasename = "S_RRp".$localdate."-".$localtime.".xls";
-	$addstring = "/support";
-	if($_SERVER['HTTP_HOST'] == "meghanab")
-		$addstring = "/saralimax-ssm";
-	
-	$filepath = $_SERVER['DOCUMENT_ROOT'].$addstring.'/filecreated/'.$filebasename;
-	$downloadlink = 'http://'.$_SERVER['HTTP_HOST'].$addstring.'/filecreated/'.$filebasename;
-	
-	$fp = fopen($filepath,"wa+");
-	if($fp)
-	{
-		fwrite($fp,$grid);
-		downloadfile($filepath);
-		fclose($fp);
-	}	
-?>
+$localdate = datetimelocal('Ymd');
+$localtime = datetimelocal('His');
+$filebasename = "S_RRp" . $localdate . "-" . $localtime . ".xls";
+$addstring = "/support";
+if ($_SERVER['HTTP_HOST'] == "meghanab")
+	$addstring = "/saralimax-ssm";
 
+$filepath = $_SERVER['DOCUMENT_ROOT'] . $addstring . '/filecreated/' . $filebasename;
+$downloadlink = 'http://' . $_SERVER['HTTP_HOST'] . $addstring . '/filecreated/' . $filebasename;
+
+$fp = fopen($filepath, "wa+");
+if ($fp) {
+	fwrite($fp, $grid);
+	downloadfile($filepath);
+	fclose($fp);
+}
+?>

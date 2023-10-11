@@ -1,13 +1,10 @@
 <?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
 
 include('../inc/includefiles.php');
 include('../inc/checktype.php');
 include('../inc/teamchart.php');
-/*if($_GET['a_link'] == 'logout')
-  include('../inc/logout.php');*/
-
+if ($_GET['a_link'] == 'logout')
+  include('../inc/logout.php');
 $localdate = datetimelocal('d-m-Y');
 $localtime = datetimelocal('H:i:s');
 $monthnum = date('n');
@@ -51,8 +48,6 @@ $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
 
 ?>
 
-
-
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -64,14 +59,6 @@ $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
     echo ($pagetilte); ?>
   </title>
   <?php include('../inc/stylesnscripts.php'); ?>
-
-
-  <script src="https://www.gstatic.com/charts/loader.js"></script>
-  <script>
-    google.charts.load('current', { packages: ['annotatedtimeline'] });
-    google.charts.setOnLoadCallback(gettimelinedata);
-  </script>
-
 </head>
 
 <body marginheight="0" marginwidth="0" onload="bodyonload();">
@@ -237,11 +224,7 @@ $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
                   </td>
                   <td valign="top" class="content-box"><input name="navigationtabcount" id="navigationtabcount"
                       type="hidden" value="<?php echo ($navigationtabcount); ?>" />
-                    <?php
-                    // if (!$_GET['a_link'] || $_GET['a_link'] == 'home_dashboard') {
-                    ?>
-                    <?php if (!isset($_GET['a_link']) || $_GET['a_link'] == 'home_dashboard') { ?>
-
+                    <?php if (!$_GET['a_link'] || $_GET['a_link'] == 'home_dashboard') { ?>
                       <script type="text/javascript" src="http://www.google.com/jsapi"></script>
                       <script language="javascript" src="../functions/annotatedtimeline.js"
                         type="text/javascript"></script>
@@ -291,12 +274,8 @@ $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
                                                                   cellpadding="3">
                                                                   <tr>
                                                                     <td>
-
                                                                       <div id='chart_div'
                                                                         style='width: 700px; height: 240px;'></div>
-
-
-
                                                                       <br />
                                                                       <div align="right" style='width: 700px;'>
                                                                         <?php if ($usertype <> 'GUEST') { ?><a
@@ -485,7 +464,7 @@ $attendanceCal = attendanceCalendardashboard(date('m'), $year, $user);
                                                           </tr>
                                                           <tr>
                                                             <td>
-                                                              <?php echo ($membergrid); ?>
+                                                              <?php echo $membergrid; ?>
                                                             </td>
                                                           </tr>
                                                           <tr>

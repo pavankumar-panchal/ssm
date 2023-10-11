@@ -2,7 +2,6 @@
 if (!isset($message)) {
   $message = null;
 }
-
 ?>
 <link rel="stylesheet" type="text/css" href="../style/main.css?dummy = <?php echo (rand()); ?>">
 <script language="javascript" src="../functions/editprofile.js?dummy = <?php echo (rand()); ?>"
@@ -38,8 +37,10 @@ if (!isset($message)) {
                       <table width="100%" border="0" cellspacing="0" cellpadding="3">
                         <tr bgcolor="#f7faff">
                           <td valign="top">Full Name:</td>
-                          <td valign="top"><input name="fullname" type="text" class="swifttext" id="fullname" size="30"
-                              autocomplete="off" value="" /></td>
+                          <td valign="top">
+                            <input name="fullname" type="text" class="swifttext" id="fullname" size="30"
+                              autocomplete="off" value="" />
+                          </td>
                         </tr>
                         <tr bgcolor="#edf4ff">
                           <td valign="top">Gender:</td>
@@ -134,13 +135,11 @@ if (!isset($message)) {
                       </table>
                     </td>
                   </tr>
-
                 </table>
               </form>
             </div>
           </td>
         </tr>
-
       </table>
     </td>
   </tr>

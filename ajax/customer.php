@@ -1,17 +1,22 @@
 <?php
-//include('../inc/ajax-referer-security.php');
-include('../functions/phpfunctions.php');
-//include('../inc/checkpermission.php');
-//include('../softkey/regfunction.bin');
+error_reporting(E_ALL);
+ini_set("display_errors",1);
 
 ob_start("ob_gzhandler");
+
+// 
+// include('../inc/ajax-referer-security.php');
+include('../functions/phpfunctions.php');
+// include('../inc/checkpermission.php');
+// include('../softkey/regfunction.bin');
+
 if(!isset($_POST['lastslno']))
 {
 	$_POST['lastslno'] = null;
 }
 $lastslno = $_POST['lastslno'];
 $switchtype = $_POST['switchtype'];
-//$userid = $_COOKIE['userid'];
+// $userid = $_COOKIE['userid'];
 $userid = imaxgetcookie('ssmuserid');
 
 // Current Year 
@@ -981,12 +986,17 @@ switch($switchtype)
 		$startlimit = $_POST['startlimit'];
 		$slno = $_POST['slno'];
 		$showtype = $_POST['showtype'];
-		$resultcount = "SELECT inv_mas_product.productname as productname FROM inv_customerproduct
-		left join inv_mas_scratchcard on  inv_customerproduct.cardid = inv_mas_scratchcard.cardid 
-		left join inv_mas_product on left(inv_customerproduct.computerid, 3) = inv_mas_product.productcode
-		left join inv_mas_users on inv_customerproduct.generatedby = inv_mas_users.slno 
-		left join inv_mas_dealer on inv_customerproduct.dealerid = inv_mas_dealer.slno  
-		where customerreference = '".$lastslno."' order by `date`  desc,`time` desc ; ";
+
+		$resultcount = "SELECT inv_mas_product.productname AS productname
+		FROM inv_customerproduct
+		LEFT JOIN inv_mas_scratchcard ON inv_customerproduct.cardid = inv_mas_scratchcard.cardid
+		LEFT JOIN inv_mas_product ON LEFT(inv_customerproduct.computerid, 3) = inv_mas_product.productcode
+		LEFT JOIN inv_mas_users ON inv_customerproduct.generatedby = inv_mas_users.slno
+		LEFT JOIN inv_mas_dealer ON inv_customerproduct.dealerid = inv_mas_dealer.slno
+		WHERE customerreference = '".$lastslno."'
+		ORDER BY `date` DESC, `time` DESC;";
+	
+
 		$resultfetch = runmysqlquery($resultcount);
 		$fetchresultcount = mysqli_num_rows($resultfetch);
 		if($showtype == 'all')

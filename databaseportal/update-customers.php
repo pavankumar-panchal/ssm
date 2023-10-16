@@ -5,36 +5,36 @@ include('../functions/phpfunctions.php');
 		if(isset($_POST['submit']))
 		{
 			$message = '';
-			$e-customerid = $_POST['e-customerid'];
+			$e_customerid = $_POST['e-customerid'];
 			$customername = $_POST['customername'];
 			$customerid = $_POST['customerid'];
 		
-			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_callregister WHERE customerid = '".$e-customerid."'");
+			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_callregister WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_callregister set customername='".$customername."' where customerid = '".$customerid."' and callertype = 'customer';");
 			
-			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_emailregister WHERE customerid = '".$e-customerid."'");
+			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_emailregister WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_emailregister set customername='".$customername."' where customerid = '".$customerid."' and callertype = 'customer';");
 		
-			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_inhouseregister WHERE customerid = '".$e-customerid."'");
+			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_inhouseregister WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_inhouseregister set customername='".$customername."' where customerid = '".$customerid."' and callertype = 'customer';");
 			
-			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_onsiteregister WHERE customerid = '".$e-customerid."'");
+			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_onsiteregister WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_onsiteregister set customername='".$customername."' where customerid = '".$customerid."' and callertype = 'customer';");
 			
-			/*$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_skyperegister WHERE customerid = '".$e-customerid."'");
+			/*$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_skyperegister WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_skyperegister set customername='".$customername."' where customerid = '".$customerid."' and callertype = 'customer';");*/
 			
-			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_invoice WHERE customerid = '".$e-customerid."'");
+			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_invoice WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_invoice set customername='".$customername."' where customerid = '".$customerid."';");
 			
 			
-			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_receipts WHERE customerid = '".$e-customerid."'");
+			$fetch = runmysqlqueryfetch("SELECT count(*) as count from ssm_receipts WHERE customerid = '".$e_customerid."'");
 			if($fetch['count'] <> 0)
 			$query = runmysqlquery("update ssm_receipts set customername='".$customername."' where customerid = '".$customerid."';");
 			

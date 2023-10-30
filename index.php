@@ -12,7 +12,6 @@ include('./functions/phpfunctions.php');
 		imaxdeletecookie('ssmuserid');
 	}
 	
-	 
 	$date = datetimelocal('d-m-Y');
 	$time = datetimelocal('H:i:s');
 	

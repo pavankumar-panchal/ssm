@@ -1,4 +1,5 @@
 <?php
+
 include('../functions/phpfunctions.php');
 ini_set('memory_limit', '1024M');
 		$fromdate = $_POST['fromdate']; $todate = $_POST['todate']; $s_customername = $_POST['s_customername']; 
@@ -477,9 +478,16 @@ LEFT JOIN ssm_category on ssm_category.slno =ssm_invoice.authorizedgroup WHERE d
 	
 		$localdate = datetimelocal('Ymd');
 		$localtime = datetimelocal('His');
+		// $filebasename = "S_RA".$localdate."-".$localtime.".xls";
+		// $filepath = $_SERVER['DOCUMENT_ROOT'].'/support/uploads/'.$filebasename;
+		// $downloadlink = 'http://'.$_SERVER['HTTP_HOST'].'/support/uploads/'.$filebasename;
+
+
+
 		$filebasename = "S_RA".$localdate."-".$localtime.".xls";
-		$filepath = $_SERVER['DOCUMENT_ROOT'].'/support/uploads/'.$filebasename;
-		$downloadlink = 'http://'.$_SERVER['HTTP_HOST'].'/support/uploads/'.$filebasename;
+		$filepath = $_SERVER['DOCUMENT_ROOT'].'/mywork/ssm/uploads/'.$filebasename;
+		$downloadlink = 'http://'.$_SERVER['HTTP_HOST'].'/mywork/ssm/uploads/'.$filebasename;
+
 		
 		$fp = fopen($filepath,"wa+");
 		if($fp)

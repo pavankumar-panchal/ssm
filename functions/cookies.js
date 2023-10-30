@@ -30,13 +30,21 @@ function SetCookie (name, value)
 	var secure = (argc > 5) ? argv[5] : false;  
 	document.cookie = name + "=" + escape (value) + ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + ((path == null) ? "" : ("; path=" + path)) + ((domain == null) ? "" : ("; domain=" + domain)) + ((secure == true) ? "; secure" : "");
 }
-function DeleteCookie (name) 
-{  
-	var exp = new Date();  
-	exp.setTime (exp.getTime() - 1);  
-	var cval = GetCookie (name);  
-	document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+// function DeleteCookie (name) 
+// {  
+// 	var exp = new Date();  
+// 	exp.setTime (exp.getTime() - 1);  
+// 	var cval = GetCookie (name);  
+// 	document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+// }
+
+function DeleteCookie(name) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = GetCookie(name);
+    document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
 }
+
 
 var exp = new Date(); 
 exp.setTime(exp.getTime() + (expDays*24*60*60*1000));

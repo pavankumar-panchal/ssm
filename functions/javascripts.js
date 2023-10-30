@@ -714,24 +714,51 @@ function get_check_value(checkboxname)
 return c_value;
 }
 
-function gettime()
-{
-		passData = "type=gettime&dummy=" + Math.floor(Math.random()*10000789641000);
-		ajaxcall5 = createajax();
-		//document.getElementById('tabgroupgridwb5').innerHTML = 'Processing <img src="../images/processing.gif" border="0"/>';
-		var queryString = "../ajax/call-register.php";
-		ajaxcall5.open("POST", queryString, true);
-		ajaxcall5.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		ajaxcall5.onreadystatechange = function()
-		{
-			if(ajaxcall5.readyState == 4)
-			{
-				var response = ajaxcall5.responseText;
-				document.getElementById('time').value = response;
-			}
-		}
-		ajaxcall5.send(passData);
+// function gettime()
+// {
+// 		passData = "type=gettime&dummy=" + Math.floor(Math.random()*10000789641000);
+// 		ajaxcall5 = createajax();
+// 		//document.getElementById('tabgroupgridwb5').innerHTML = 'Processing <img src="../images/processing.gif" border="0"/>';
+// 		var queryString = "../ajax/call-register.php";
+// 		ajaxcall5.open("POST", queryString, true);
+// 		ajaxcall5.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+// 		ajaxcall5.onreadystatechange = function()
+// 		{
+// 			if(ajaxcall5.readyState == 4)
+// 			{
+// 				var response = ajaxcall5.responseText;
+// 				document.getElementById('time').value = response;
+// 			}
+// 		}
+// 		ajaxcall5.send(passData);
+// }
+
+
+function gettime() {
+    const passData = "type=gettime&dummy=" + Math.floor(Math.random() * 10000789641000);
+    const queryString = "../ajax/call-register.php";
+
+    fetch(queryString, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded"
+        },
+        body: passData
+    })
+    .then(response => response.text())
+    .then(response => {
+        document.getElementById('time').value = response;
+    })
+    .catch(error => {
+        console.error("An error occurred:", error);
+    });
 }
+
+
+
+
+
+
 
 function getprocessingimage()
 {

@@ -1,15 +1,18 @@
 <?php
 
+
+
 //Include Database Configuration details
 if (file_exists("../inc/dbconfig.php")) {
     include('../inc/dbconfig.php');
 } elseif (file_exists("../../inc/dbconfig.php")) {
     include('../../inc/dbconfig.php');
-} else{
-    include('./inc/dbconfig.php');}
-$newconnection = mysqli_connect($dbhost, $dbuser, $dbpwd,$dbname) or die("Cannot connect to Mysql server host");
+} else {
+    include('./inc/dbconfig.php');
+}
+$newconnection = mysqli_connect($dbhost, $dbuser, $dbpwd, $dbname) or die("Cannot connect to Mysql server host");
 
-$newconnection_old = mysqli_connect($dbhost_old, $dbuser_old, $dbpwd_old,$dbname_old) or die("Cannot connect to Mysql server host");
+$newconnection_old = mysqli_connect($dbhost_old, $dbuser_old, $dbpwd_old, $dbname_old) or die("Cannot connect to Mysql server host");
 
 /* -------------------- Get local server time [by adding 5.30 hours] -------------------- */
 function datetimelocal($format)
@@ -30,8 +33,8 @@ function fileupload($filename, $filetempname)
     $filebasename = $date . basename($filename);
     $ext = substr($filebasename, strrpos($filebasename, '.') + 1);
     if ($ext == "zip") {
-        $newname = $_SERVER['DOCUMENT_ROOT'] . '/support/uploads/' . $filebasename;
-        $downloadlink = 'http://' . $_SERVER['HTTP_HOST'] . '/support/uploads/' . $filebasename;
+        $newname = $_SERVER['DOCUMENT_ROOT'] . '/mywork/ssm/uploads/' . $filebasename;
+        $downloadlink = 'http://' . $_SERVER['HTTP_HOST'] . '/mywork/ssm/uploads/' . $filebasename;
         if (!file_exists($newname)) {
             if ((move_uploaded_file($filetempname, $newname))) {
                 $result = "1^" . $newname; //Upload successfull
@@ -133,7 +136,7 @@ function runmysqlqueryfetch_old($query)
 
     set_time_limit(3600);
     //Run the query
-    $result = mysqli_query($query, $newconnection_old) or die(" run Query Failed in Runquery function1." . $query); //;
+    $result = mysqli_query( $newconnection_old,$query) or die(" run Query Failed in Runquery function1." . $query); //;
 
     //Fetch the Query to an array
     $fetchresult = mysqli_fetch_array($result) or die("Cannot fetch the query result." . $query);
@@ -272,22 +275,42 @@ function changetime($time)
     odbc_close($connection);
 }
 */
+// function runaccessquerycsd($query)
+// {
+//     global $csddsnname, $csddsnuser, $csddsnpwd;
+
+//     //Connect to host
+//     $connection = odbc_connect($csddsnname, $csddsnuser, $csddsnpwd) or die($csddsnname . $csddsnuser . "Cannot connect to Access server host");
+
+//     //Run the query
+//     $result = odbc_exec($connection, $query) or die(" run Query Failed in runquery function");
+
+//     //Return the result
+//     return $result;
+
+//     //Close the database connection
+//     odbc_close($connection);
+// }
+
+
+
 function runaccessquerycsd($query)
 {
     global $csddsnname, $csddsnuser, $csddsnpwd;
 
-    //Connect to host
+    // Connect to host
     $connection = odbc_connect($csddsnname, $csddsnuser, $csddsnpwd) or die($csddsnname . $csddsnuser . "Cannot connect to Access server host");
 
-    //Run the query
-    $result = odbc_exec($connection, $query) or die(" run Query Failed in runquery function");
+    // Run the query
+    $result = odbc_exec($connection, $query) or die("run Query Failed in runquery function");
 
-    //Return the result
-    return $result;
-
-    //Close the database connection
+    // Close the database connection
     odbc_close($connection);
+
+    // Return the result
+    return $result;
 }
+
 
 //T0 Display Current Month Calendar--
 
@@ -580,7 +603,7 @@ function newreplacemailvariable($content, $array)
 function getpagelink($linkvalue)
 {
     switch ($linkvalue) {
-        case 'home_dashboard':  
+        case 'home_dashboard':
             return '../home/index.php';
             break;
         case 'home_setting':
@@ -941,11 +964,19 @@ function gettimeDifference($date1, $time1, $date2, $time2)
     $endtime = explode(":", $time2);
 
     $secondsDifference = mktime(
-        $endtime[0], $endtime[1], $endtime[2],
-        $enddate[1], $enddate[2], $enddate[0]
+        $endtime[0],
+        $endtime[1],
+        $endtime[2],
+        $enddate[1],
+        $enddate[2],
+        $enddate[0]
     ) - mktime(
         $starttime[0],
-        $starttime[1], $starttime[2], $startdate[1], $startdate[2], $startdate[0]
+        $starttime[1],
+        $starttime[2],
+        $startdate[1],
+        $startdate[2],
+        $startdate[0]
     );
 
 

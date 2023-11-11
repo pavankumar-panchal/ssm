@@ -18,6 +18,8 @@ $switchtype = $_POST['switchtype'];
 // $userid = $_COOKIE['userid'];
 $userid = imaxgetcookie('ssmuserid');
 
+
+
 // Current Year 
 $currentyear = "2019-20";
 
